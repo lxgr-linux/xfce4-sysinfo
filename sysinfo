@@ -1,0 +1,54 @@
+#!/bin/sh
+
+GTKDIALOG=gtkdialog
+export MAIN_DIALOG='
+
+<window title="Systeminfo" icon-name="preferences-desktop" resizable="true" width-request="500" height-request="auto">
+ <vbox>
+  <frame Systeminfo>
+  <hseparator width-request="auto" height-request="20"></hseparator>
+  <vbox homogeneous="true">
+    <pixmap icon_size="100">
+      <input file>/usr/share/icons/Papirus/64x64@2x/categories/distributor-logo-archlinux.svg</input>
+    </pixmap>
+  </vbox>
+    <hseparator width-request="auto" height-request="20"></hseparator>
+    <text><label> Operatingsystem: '$(egrep PRETTY_NAME /etc/os-release | sed -e 's/"/ /g' | awk {'print $2, $3,$4, $5'})'</label></text>
+    <text><label> XFCE version: '$(xfce4-session -V | egrep xfce4-session | awk {'print $2'})'</label></text>
+    <text><label> CPU: '$(lscpu | egrep Modellname | awk {'print $2,$3,$4,$5,$6,$7,$8,$9,$10'})'</label></text>
+    <text><label> GPU: '$(lspci | egrep VGA | awk {'print $5,$6,$7,$8,$9,$10,$11'})'</label></text>
+    <text><label> RAM: '$(free -h | egrep Speicher | awk {'print $2'})'</label></text>
+    <text><label> Disk used: '$(df -h | egrep -w ' /' | awk {'print $3'})'/'$(df -h | egrep -w ' /' | awk {'print $2'})'</label></text>
+    <hbox homogeneous="true">
+      <hbox>
+        <text><label> Hostname: '$(hostname)'</label></text>
+        <button>
+          <input file icon="document-edit"></input>
+          <label>"Change hostname"</label>
+          <action>zenity --password --title "Password"| sudo -S hostnamectl set-hostname $(zenity --entry --text "Set new hostname:" --entry-text $(hostname) --title="New Hostname")</action>
+        </button>
+      </hbox>
+    </hbox>
+    <hbox homogeneous="true">
+      <hbox>
+        <text><label>Installed Packages: '$( pacman -Qq | wc -l)'</label></text>
+        <button>
+          <input file icon="software-update-available-symbolics"></input>
+          <label>"Install updates"</label>
+          <action>zenity --password --title "Password" | sudo -S xfce4-terminal -x pacman -Syu ; zenity --info --text "Done!"</action>
+        </button>
+      </hbox>
+    </hbox>
+  </frame>
+  <hseparator width-request="auto"></hseparator>
+  <hbox>
+    <button>
+      <input file icon="application-exit"></input>
+      <label>"Exit"</label>
+    </button>
+  </hbox>
+ </vbox>
+</window>
+'
+
+gtkdialog --program=MAIN_DIALOG
