@@ -6,3 +6,4 @@ This pice of software should improve the use of the xfce desktopenvoirement in A
 
 This script is standalone usable, but you may copy it to /usr/bin/.
 In this case you can call it via 'sysinfo'.
+Can also copy the .desktop file to /usr/share/applications to call the script via the xfce menu.
