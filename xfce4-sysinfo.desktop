@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Exec=/home/arch/Bash/sysinfo
+Icon=help-about
+StartupNotify=false
+Terminal=false
+Categories=Utility;X-XFCE;X-Xfce-Toplevel;Settings;
+OnlyShowIn=XFCE;
+Name=Systeminfo
+Comment=Prints systeminformations
