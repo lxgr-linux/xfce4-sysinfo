@@ -4,7 +4,7 @@ This pice of software should improve the use of the xfce desktopenvoirement in A
 
 # dependencies
 
-This script needs gktdialog, zenity, xfec4-session, pacman, egrep, awk, hostname and hostnamectl.
+This script needs gktdialog, zenity, xfce4-session, pacman, egrep, awk, hostname and hostnamectl.
 
 
 # installation 
