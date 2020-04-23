@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 Type=Application
-Exec=/home/arch/Bash/sysinfo
+Exec=/usr/bin/sysinfo
 Icon=help-about
 StartupNotify=false
 Terminal=false
