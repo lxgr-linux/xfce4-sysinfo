@@ -33,7 +33,7 @@ export MAIN_DIALOG='
       <hbox>
         <text><label>Installed Packages: '$( pacman -Qq | wc -l)'</label></text>
         <button>
-          <input file icon="software-update-available-symbolics"></input>
+          <input file icon="software-update-available-symbolic"></input>
           <label>"Install updates"</label>
           <action>zenity --password --title "Password" | sudo -S xfce4-terminal -x pacman -Syu ; zenity --info --text "Done!"</action>
         </button>
