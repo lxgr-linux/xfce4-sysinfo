@@ -18,7 +18,7 @@ export about_dialog='
   <hbox>
     <button>
       <label>"Update this software"</label>
-      <action>zenity --info --text "The latest version of this software will be downloaded and installed from the AUR. You will have to type in your password!" && xfce4-terminal -x sh -c "mkdir ~/.build_AUR ; cd ~/.build_AUR ; echo >> cloning git repository ; git clone https://aur.archlinux.org/xfce4-sysinfo.git ; cd ./xfce4-sysinfo ; echo >> making and installing the package ; makepkg -sif ; cd ; echo >> cleaning up ; sudo rm -r ~/.build_AUR ; echo >> done ; zenity --info --text "Done""</action>
+      <action>zenity --info --text "The latest version of this software will be downloaded and installed from the AUR. You will have to type in your password!" && xfce4-terminal -x sh -c "mkdir ~/.build_AUR ; cd ~/.build_AUR ; echo :: Cloning git repository ; git clone https://aur.archlinux.org/xfce4-sysinfo.git ; cd ./xfce4-sysinfo ; echo :: Making and installing the package ; makepkg -sif ; cd ; echo :: Cleaning up ; sudo rm -r ~/.build_AUR ; echo :: Done! ; zenity --info --text "Done!""</action>
     </button>
     <button>
       <input file icon="application-exit"></input>
