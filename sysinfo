@@ -1,6 +1,34 @@
 #!/bin/sh
 
 GTKDIALOG=gtkdialog
+export about_dialog='
+
+<window title="About Systeminfo" icon-name="dialog-information-symbolic" resizable="true" width-request="500" height-request="auto">
+  <vbox>
+    <pixmap>
+      <input file icon="dialog-information-symbolic"></input>
+      <height>70</height><width>70</width>
+    </pixmap>
+  <hseparator width-request="auto"></hseparator>
+    <text use-markup="true"><label>"<b>xfce4-sysinfo</b>"</label></text>
+    <text><label>A little application to show systeminfos in xfce and expand the xfce settings</label></text>
+    <text><label>Created by: lxgr [lxgr@protonmail.com]</label></text>
+    <text><label>Version: '$(pacman -Qs xfce4-sysinfo | egrep xfce4-sysinfo | awk {'print $2'})'</label></text>
+    <hseparator width-request="auto"></hseparator>
+  <hbox>
+    <button>
+      <label>"Update this software"</label>
+    </button>
+    <button>
+      <input file icon="application-exit"></input>
+      <label>"Exit"</label>
+    </button>
+  </hbox>
+  </vbox>
+</window>
+'
+
+
 export MAIN_DIALOG='
 
 <window title="Systeminfo" icon-name="preferences-desktop" resizable="true" width-request="500" height-request="auto">
@@ -8,8 +36,9 @@ export MAIN_DIALOG='
   <frame Systeminfo>
   <hseparator width-request="auto" height-request="20"></hseparator>
   <vbox homogeneous="true">
-    <pixmap icon_size="100">
+    <pixmap>
       <input file>/usr/share/icons/Papirus/64x64@2x/categories/distributor-logo-archlinux.svg</input>
+      <height>80</height><width>80</width>
     </pixmap>
   </vbox>
     <hseparator width-request="auto" height-request="20"></hseparator>
@@ -42,6 +71,10 @@ export MAIN_DIALOG='
   </frame>
   <hseparator width-request="auto"></hseparator>
   <hbox>
+    <button>
+      <label>"About"</label>
+      <action>gtkdialog --program=about_dialog</action>
+    </button>
     <button>
       <input file icon="application-exit"></input>
       <label>"Exit"</label>
