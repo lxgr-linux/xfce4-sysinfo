@@ -42,14 +42,14 @@ export MAIN_DIALOG='
 <window title="Systeminfo" icon-name="preferences-desktop" resizable="true" width-request="500" height-request="auto">
  <vbox>
   <frame Systeminfo>
-  <hseparator width-request="auto" height-request="20"></hseparator>
-  <vbox homogeneous="true">
-    <pixmap>
-      <input file>/usr/share/icons/Papirus/64x64@2x/categories/distributor-logo-archlinux.svg</input>
-      <height>80</height><width>80</width>
-    </pixmap>
-  </vbox>
-    <hseparator width-request="auto" height-request="20"></hseparator>
+    <text><label>" "</label></text>
+    <vbox homogeneous="true">
+      <pixmap>
+        <input file>/usr/share/icons/Papirus/64x64@2x/categories/distributor-logo-'$(egrep LOGO /etc/os-release | sed -e 's/=/ /g' | awk {'print $2'})'.svg</input>
+        <height>100</height><width>100</width>
+      </pixmap>
+    </vbox>
+    <text><label>" "</label></text>
     <text><label> Operatingsystem: '$(egrep PRETTY_NAME /etc/os-release | sed -e 's/"/ /g' | awk {'print $2, $3,$4, $5'})'</label></text>
     <text><label> XFCE version: '$(xfce4-session -V | egrep xfce4-session | awk {'print $2'})'</label></text>
     <text><label> CPU: '$(lscpu | egrep Modellname | awk {'print $2,$3,$4,$5,$6,$7,$8,$9,$10'})'</label></text>
