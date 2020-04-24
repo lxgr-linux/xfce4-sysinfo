@@ -1,5 +1,4 @@
 #!/bin/sh
-
 GTKDIALOG=gtkdialog
 export about_dialog='
 
@@ -11,14 +10,23 @@ export about_dialog='
     </pixmap>
   <hseparator width-request="auto"></hseparator>
     <text use-markup="true"><label>"<b>xfce4-sysinfo</b>"</label></text>
-    <text><label>A little application to show systeminfos in xfce and expand the xfce settings</label></text>
+    <text justify="2"><label>A little application to show systeminfos in xfce and expand the xfce settings</label></text>
     <text><label>Created by: lxgr [lxgr@protonmail.com]</label></text>
+    <hbox homogeneous="true">
+      <hbox>
+        <text><label>Homepage: </label></text>
+        <text selectable="true" use-markup="false">
+          <label>https://github.com/lxgr-linux/xfce4-sysinfo</label>
+        </text>
+      </hbox>
+    </hbox>
     <text><label>Version: '$(pacman -Qs xfce4-sysinfo | egrep xfce4-sysinfo | awk {'print $2'})'</label></text>
     <hseparator width-request="auto"></hseparator>
   <hbox>
     <button>
       <label>"Update this software"</label>
-      <action>zenity --info --text "The latest version of this software will be downloaded and installed from the AUR. You will have to type in your password!" && xfce4-terminal -x sh -c "mkdir ~/.build_AUR ; cd ~/.build_AUR ; echo :: Cloning git repository ; git clone https://aur.archlinux.org/xfce4-sysinfo.git ; cd ./xfce4-sysinfo ; echo :: Making and installing the package ; makepkg -sif ; cd ; echo :: Cleaning up ; sudo rm -r ~/.build_AUR ; echo :: Done! ; zenity --info --text "Done!""</action>
+      <action>zenity --info --text "The latest version of this software will be downloaded and installed from the AUR. You will have to type in your password!" && xfce4-terminal -x sh -c "mkdir ~/.build_AUR ; cd ~/.build_AUR ; echo :: Cloning git repository ; git clone https://aur.archlinux.org/xfce4-sysinfo.git ; cd ./xfce4-sysinfo ; echo :: Making and installing the package ; makepkg -sif ; cd ; echo :: Cleaning up ; sudo rm -r ~/.build_AUR ; echo :: Done! ; zenity --info --text "Done!""
+      </action>
     </button>
     <button>
       <input file icon="application-exit"></input>
@@ -74,7 +82,7 @@ export MAIN_DIALOG='
   <hbox>
     <button>
       <label>"About"</label>
-      <action>gtkdialog --program=about_dialog</action>
+      <action>gtkdialog --program=about_dialog & </action>
     </button>
     <button>
       <input file icon="application-exit"></input>
