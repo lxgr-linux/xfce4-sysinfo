@@ -15,9 +15,10 @@ export about_dialog='
     <hbox homogeneous="true">
       <hbox>
         <text><label>Homepage: </label></text>
-        <text selectable="true" use-markup="false">
+        <button relief="2">
+          <action>exo-open --launch WebBrowser https://github.com/lxgr-linux/xfce4-sysinfo</action>
           <label>https://github.com/lxgr-linux/xfce4-sysinfo</label>
-        </text>
+        </button>
       </hbox>
     </hbox>
     <text><label>Version: '$(pacman -Qs xfce4-sysinfo | egrep xfce4-sysinfo | awk {'print $2'})'</label></text>
@@ -25,12 +26,11 @@ export about_dialog='
     <hbox>
       <button>
         <input file icon="software-update-available-symbolic"></input>
+        <height>18</height>
         <label>"Update this software"</label>
         <action>zenity --info --text "The latest version of this software will be downloaded and installed from the AUR. You will have to type in your password!" && xfce4-terminal -x sh -c "mkdir ~/.build_AUR ; cd ~/.build_AUR ; echo :: Cloning git repository ; git clone https://aur.archlinux.org/xfce4-sysinfo.git ; cd ./xfce4-sysinfo ; echo :: Making and installing the package ; makepkg -sif ; cd ; echo :: Cleaning up ; sudo rm -r ~/.build_AUR ; echo :: Done! ; zenity --info --text "Done!""</action>
       </button>
-      <button>
-        <input file icon="application-exit"></input>
-        <label>"Exit"</label>
+      <button use-stock="true" label="gtk-quit">
       </button>
     </hbox>
   </vbox>
@@ -50,21 +50,23 @@ export MAIN_DIALOG='
         <text><label> Operatingsystem: '$(egrep PRETTY_NAME /etc/os-release | sed -e 's/"/ /g' | awk {'print $2, $3,$4, $5'})'</label></text>
         <text><label> Kernel: '$(uname -msr)'</label></text>
         <text><label> XFCE version: '$(xfce4-session -V | egrep xfce4-session | awk {'print $2'})'</label></text>
-        <hbox homogeneous="true">
-          <hbox>
+        <hbox homogeneous="true" spacing="0">
+          <hbox spacing="0">
             <text><label>Installed Packages: '$( pacman -Qq | wc -l)' (pacman)</label></text>
-            <button>
+            <button relief="2">
               <input file icon="software-update-available-symbolic"></input>
+              <height>18</height>
               <label>"Install updates"</label>
               <action>zenity --password --title "Password" | sudo -S xfce4-terminal -x pacman -Syu ; zenity --info --text "Done!"</action>
             </button>
           </hbox>
         </hbox>
-        <hbox homogeneous="true">
-          <hbox>
+        <hbox homogeneous="true" spacing="0">
+          <hbox spacing="0">
             <text><label> Hostname: '$(hostname)'</label></text>
-            <button>
+            <button relief="2">
               <input file icon="document-edit"></input>
+              <height>18</height>
               <label>"Change hostname"</label>
               <action>zenity --password --title "Password"| sudo -S hostnamectl set-hostname $(zenity --entry --text "Set new hostname:" --entry-text $(hostname) --title="New Hostname")</action>
             </button>
@@ -82,21 +84,16 @@ export MAIN_DIALOG='
       <vbox homogeneous="true">
         <pixmap>
           <input file>/usr/share/xfce4-sysinfo/icons/'$(egrep LOGO /etc/os-release | sed -e 's/=/ /g' | awk {'print $2'})'.svg</input>
-          <height>120</height><width>120</width>
+          <height>150</height><width>150</width>
         </pixmap>
       </vbox>
     </hbox>
   </frame>
-  <hseparator width-request="auto"></hseparator>
-  <hbox>
-    <button>
-      <input file icon="dialog-information-symbolic"></input>
-      <label>"About"</label>
+  <hbox spacing="0">
+    <button use-stock="true" label="gtk-about" width-request="100">
       <action>gtkdialog --program=about_dialog & </action>
     </button>
-    <button>
-      <input file icon="application-exit"></input>
-      <label>"Exit"</label>
+    <button use-stock="true" label="gtk-quit" width-request="100">
     </button>
   </hbox>
  </vbox>
