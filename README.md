@@ -1,6 +1,6 @@
 # xfce4-sysinfo
 
-This pice of software should improve the use of the xfce desktopenvoirement in Arch Linux (I may expand this to other distros).
+This piece of software should improve the use of the xfce desktopenvoirement in Arch Linux (I may expand this to other distros).
 
 # dependencies
 
