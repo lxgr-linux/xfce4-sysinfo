@@ -81,7 +81,7 @@ export MAIN_DIALOG='
       </vbox>
       <vbox homogeneous="true">
         <pixmap>
-          <input file>/usr/share/icons/Papirus/64x64@2x/categories/distributor-logo-'$(egrep LOGO /etc/os-release | sed -e 's/=/ /g' | awk {'print $2'})'.svg</input>
+          <input file>/usr/share/xfce4-sysinfo/icons/'$(egrep LOGO /etc/os-release | sed -e 's/=/ /g' | awk {'print $2'})'.svg</input>
           <height>120</height><width>120</width>
         </pixmap>
       </vbox>
