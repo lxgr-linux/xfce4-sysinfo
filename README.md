@@ -12,3 +12,10 @@ This script needs gktdialog, zenity, xfce4-session, pacman, egrep, awk, hostname
 This script is standalone usable, but you may copy it to /usr/bin/.
 In this case you can call it via 'sysinfo'.
 Can also copy the .desktop file to /usr/share/applications to call the script via the xfce menu.
+
+# usage
+
+sysinfo <option>
+	-s|--start  : Start xfce4-sysinfo
+	-a|--about  : Display about-dialog
+	-h|--help   : Display help-dialog
