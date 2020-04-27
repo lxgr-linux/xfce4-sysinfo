@@ -1,5 +1,27 @@
 #!/bin/sh
-GTKDIALOG=gtkdialog
+
+. /etc/os-release
+
+update(){
+  echo "The latest version of this software will be downloaded and installed from the AUR. You will have to type in your password! Do you want this? (y/n)"
+  read ans
+  if [ $ans == y ]
+    then
+      mkdir ~/.build_AUR
+      cd ~/.build_AUR
+      echo :: Cloning git repository
+      git clone https://aur.archlinux.org/xfce4-sysinfo.git
+      cd ./xfce4-sysinfo
+      echo :: Making and installing the package
+      makepkg -sif
+      cd
+      echo :: Cleaning up
+      sudo rm -r ~/.build_AUR
+      echo :: Done!
+  fi
+  echo :: Exit
+}
+
 export about_dialog='
 
 <window title="About Systeminfo" icon-name="dialog-information-symbolic" resizable="false" width-request="500" height-request="auto">
@@ -23,14 +45,19 @@ export about_dialog='
     </hbox>
     <text><label>Version: '$(pacman -Qs xfce4-sysinfo | egrep xfce4-sysinfo | awk {'print $2'})'</label></text>
     <hseparator width-request="auto"></hseparator>
-    <hbox>
+    <hbox spacing="0">
+      <button>
+        <input file icon="info"></input>
+        <label>"License"</label>
+        <action>exo-open --launch TerminalEmulator sh -c "cat /usr/share/xfce4-sysinfo/LICENSE | less"</action>
+      </button>
       <button>
         <input file icon="software-update-available-symbolic"></input>
         <height>18</height>
         <label>"Update this software"</label>
         <action>zenity --info --text "The latest version of this software will be downloaded and installed from the AUR. You will have to type in your password!" && xfce4-terminal -x sh -c "mkdir ~/.build_AUR ; cd ~/.build_AUR ; echo :: Cloning git repository ; git clone https://aur.archlinux.org/xfce4-sysinfo.git ; cd ./xfce4-sysinfo ; echo :: Making and installing the package ; makepkg -sif ; cd ; echo :: Cleaning up ; sudo rm -r ~/.build_AUR ; echo :: Done! ; zenity --info --text "Done!""</action>
       </button>
-      <button use-stock="true" label="gtk-quit">
+      <button use-stock="true" label="gtk-quit" width-request="100">
       </button>
     </hbox>
   </vbox>
@@ -47,7 +74,7 @@ export MAIN_DIALOG='
       <vbox>
         <text height-request="0"><label>" "</label></text>
         <text use-markup="true"><label>"<b>General: </b>"</label></text>
-        <text><label> Operatingsystem: '$(egrep PRETTY_NAME /etc/os-release | sed -e 's/"/ /g' | awk {'print $2, $3,$4, $5'})'</label></text>
+        <text><label> Operatingsystem: '$PRETTY_NAME'</label></text>
         <text><label> Kernel: '$(uname -msr)'</label></text>
         <text><label> XFCE version: '$(xfce4-session -V | egrep xfce4-session | awk {'print $2'})'</label></text>
         <hbox homogeneous="true" spacing="0">
@@ -83,7 +110,7 @@ export MAIN_DIALOG='
       </vbox>
       <vbox homogeneous="true">
         <pixmap>
-          <input file>/usr/share/xfce4-sysinfo/icons/'$(egrep LOGO /etc/os-release | sed -e 's/=/ /g' | awk {'print $2'})'.svg</input>
+          <input file>/usr/share/xfce4-sysinfo/icons/'$LOGO'.svg</input>
           <height>150</height><width>150</width>
         </pixmap>
       </vbox>
@@ -99,5 +126,35 @@ export MAIN_DIALOG='
  </vbox>
 </window>
 '
-
-gtkdialog --program=MAIN_DIALOG
+case $1 in
+    -s|--start)
+    gtkdialog --program=MAIN_DIALOG
+    exit 0
+    ;;
+		-h|--help)
+                echo "xfce4-sysinfo"
+                echo "Usage: $0 <option>"
+                echo "      -s|--start   : Start xfce4-sysinfo"
+                echo "      -a|--about   : Display about-dialog"
+                echo "      -v|--version : Display version"
+                echo "      -u|--upgrade : Update this software via the AUR (will just work on archlinux!)"
+                echo "      -h|--help    : Display this help-dialog"
+		exit 0
+		;;
+    -u|--update)
+    update
+    exit 0
+    ;;
+    -a|--about)
+    gtkdialog --program=about_dialog
+    exit 0
+    ;;
+    -v|--version)
+    echo $(pacman -Qs xfce4-sysinfo | egrep xfce4-sysinfo | awk {'print $2'})
+    exit 0
+    ;;
+    * )
+    gtkdialog --program=MAIN_DIALOG
+    exit 0
+    ;;
+esac
