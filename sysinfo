@@ -24,7 +24,7 @@ update(){
 
 export about_dialog='
 
-<window title="About Systeminfo" icon-name="dialog-information-symbolic" resizable="false" width-request="500" height-request="auto">
+<window title="About Systeminfo" icon-name="dialog-information-symbolic" resizable="true" width-request="500" height-request="auto">
   <vbox>
     <pixmap>
       <input file icon="dialog-information-symbolic"></input>
@@ -44,6 +44,7 @@ export about_dialog='
       </hbox>
     </hbox>
     <text><label>Version: '$(pacman -Qs xfce4-sysinfo | egrep xfce4-sysinfo | awk {'print $2'})'</label></text>
+    <text><label>" "</label></text>
     <hseparator width-request="auto"></hseparator>
     <hbox spacing="0">
       <button width-request="100">
@@ -68,9 +69,25 @@ export about_dialog='
 
 export MAIN_DIALOG='
 
-<window title="Systeminfo" icon-name="preferences-desktop" resizable="true" width-request="auto" height-request="auto">
+<window title="Systeminfo" icon-name="preferences-desktop" resizable="false" width-request="auto" height-request="auto">
  <vbox>
-  <frame Systeminfo>
+ <hbox>
+  <hbox pack-type="1">
+    <pixmap>
+      <input file icon="dialog-information-symbolic"></input>
+      <height>70</height><width>70</width>
+    </pixmap>
+    <vbox homogeneous="true">
+      <text use-markup="true"  justify="0" wrap="true"><label>"<b><big>Systeminfo</big></b>
+Here you can see your systems information"</label></text>
+    </vbox>
+  </hbox>
+  <hbox width-request="400">
+    <text><label>" "</label></text>
+  </hbox>
+ </hbox>
+   <frame Systeminfo>
+ <notebook show-tabs="false">
     <hbox homogeneous="true">
       <vbox>
         <text height-request="0"><label>" "</label></text>
@@ -116,6 +133,7 @@ export MAIN_DIALOG='
         </pixmap>
       </vbox>
     </hbox>
+  </notebook>
   </frame>
   <hbox spacing="0">
     <button use-stock="true" label="gtk-about" width-request="100">
@@ -138,12 +156,17 @@ case $1 in
                 echo "      -s|--start   : Start xfce4-sysinfo"
                 echo "      -a|--about   : Display about-dialog"
                 echo "      -v|--version : Display version"
+                echo "      -l|--license : Display license"
                 echo "      -u|--upgrade : Update this software via the AUR (will just work on archlinux!)"
                 echo "      -h|--help    : Display this help-dialog"
 		exit 0
 		;;
     -u|--update)
     update
+    exit 0
+    ;;
+    -l|--license)
+    cat /usr/share/licenses/xfce4-sysinfo/LICENSE | less
     exit 0
     ;;
     -a|--about)
