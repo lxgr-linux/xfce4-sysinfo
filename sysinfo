@@ -82,7 +82,7 @@ export MAIN_DIALOG='
 Here you can see your systems information"</label></text>
       </vbox>
     </hbox>
-    <hbox width-request="350">
+    <hbox width-request="360">
       <text><label>" "</label></text>
     </hbox>
   </hbox>
