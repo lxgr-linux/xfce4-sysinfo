@@ -46,10 +46,11 @@ export about_dialog='
     <text><label>Version: '$(pacman -Qs xfce4-sysinfo | egrep xfce4-sysinfo | awk {'print $2'})'</label></text>
     <hseparator width-request="auto"></hseparator>
     <hbox spacing="0">
-      <button>
-        <input file icon="info"></input>
+      <button width-request="100">
+        <input file icon="dialog-information-symbolic"></input>
+        <height>18</height>
         <label>"License"</label>
-        <action>exo-open --launch TerminalEmulator sh -c "cat /usr/share/xfce4-sysinfo/LICENSE | less"</action>
+        <action>exo-open --launch TerminalEmulator sh -c "cat /usr/share/licenses/xfce4-sysinfo/LICENSE | less"</action>
       </button>
       <button>
         <input file icon="software-update-available-symbolic"></input>
