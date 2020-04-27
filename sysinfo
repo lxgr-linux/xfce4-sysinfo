@@ -71,41 +71,41 @@ export MAIN_DIALOG='
 
 <window title="Systeminfo" icon-name="preferences-desktop" resizable="false" width-request="auto" height-request="auto">
  <vbox>
- <hbox>
-  <hbox pack-type="1">
-    <pixmap>
-      <input file icon="dialog-information-symbolic"></input>
-      <height>70</height><width>70</width>
-    </pixmap>
-    <vbox homogeneous="true">
-      <text use-markup="true"  justify="0" wrap="true"><label>"<b><big>Systeminfo</big></b>
+   <hbox>
+     <hbox pack-type="1">
+       <pixmap>
+         <input file icon="dialog-information-symbolic"></input>
+         <height>60</height><width>60</width>
+       </pixmap>
+       <vbox homogeneous="true">
+         <text use-markup="true"  justify="0" wrap="true"><label>"<b><big>Systeminfo</big></b>
 Here you can see your systems information"</label></text>
-    </vbox>
+      </vbox>
+    </hbox>
+    <hbox width-request="350">
+      <text><label>" "</label></text>
+    </hbox>
   </hbox>
-  <hbox width-request="400">
-    <text><label>" "</label></text>
-  </hbox>
- </hbox>
-   <frame Systeminfo>
- <notebook show-tabs="false">
-    <hbox homogeneous="true">
-      <vbox>
-        <text height-request="0"><label>" "</label></text>
-        <text use-markup="true"><label>"<b>General: </b>"</label></text>
-        <text><label> Operatingsystem: '$PRETTY_NAME'</label></text>
-        <text><label> Kernel: '$(uname -msr)'</label></text>
-        <text><label> XFCE version: '$(xfce4-session -V | egrep xfce4-session | awk {'print $2'})'</label></text>
-        <hbox homogeneous="true" spacing="0">
-          <hbox spacing="0">
-            <text><label>Installed Packages: '$( pacman -Qq | wc -l)' (pacman)</label></text>
-            <button relief="2">
-              <input file icon="software-update-available-symbolic"></input>
-              <height>18</height>
-              <label>"Install updates"</label>
-              <action>zenity --password --title "Password" | sudo -S xfce4-terminal -x pacman -Syu ; zenity --info --text "Done!"</action>
-            </button>
-          </hbox>
-        </hbox>
+   <frame>
+     <notebook show-tabs="false">
+       <hbox homogeneous="true">
+         <vbox>
+           <text height-request="0"><label>" "</label></text>
+           <text use-markup="true"><label>"<b>General: </b>"</label></text>
+           <text><label> Operatingsystem: '$PRETTY_NAME'</label></text>
+           <text><label> Kernel: '$(uname -msr)'</label></text>
+           <text><label> XFCE version: '$(xfce4-session -V | egrep xfce4-session | awk {'print $2'})'</label></text>
+           <hbox homogeneous="true" spacing="0">
+             <hbox spacing="0">
+               <text><label>Installed Packages: '$( pacman -Qq | wc -l)' (pacman)</label></text>
+               <button relief="2">
+                 <input file icon="software-update-available-symbolic"></input>
+                 <height>18</height>
+                 <label>"Install updates"</label>
+                 <action>zenity --password --title "Password" | sudo -S xfce4-terminal -x pacman -Syu ; zenity --info --text "Done!"</action>
+               </button>
+             </hbox>
+           </hbox>
         <hbox homogeneous="true" spacing="0">
           <hbox spacing="0">
             <text><label> Hostname: '$(hostname)'</label></text>
@@ -124,6 +124,7 @@ Here you can see your systems information"</label></text>
           <text><label> GPU: '$(lspci | egrep VGA | awk {'print $5,$6,$7,$8,$9,$10,$11'})'</label></text>
           <text><label> RAM: '$(free -h | egrep Speicher | awk {'print $2'})'</label></text>
           <text><label> Disk used: '$(df -h | egrep -w ' /' | awk {'print $3'})'/'$(df -h | egrep -w ' /' | awk {'print $2'})'</label></text>
+          <text><label>" "</label></text>
         </vbox>
       </vbox>
       <vbox homogeneous="true">
