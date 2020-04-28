@@ -84,8 +84,8 @@ export MAIN_DIALOG='
 Here you can see your
 systems information"</label></text>
       </vbox>
-      <hbox>
-        <text width-request="425"><label>" "</label></text>
+      <hbox space-expand="true">
+        <text width-request="500"><label>" "</label></text>
       </hbox>
       </hbox>
     </hbox>
