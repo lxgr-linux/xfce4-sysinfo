@@ -21,21 +21,6 @@ update(){
   fi
   echo :: Exit
 }
-export license_dialog='
-
-<window title="Systeminfo License" icon-name="dialog-information-symbolic" resizable="true" width-request="auto" height-request="800">
-  <vbox>
-    <text>
-      <label>License:</label>
-      <input file>/usr/share/licenses/xfce4-sysinfo/LICENSE</input>
-    </text>
-    <hbox>
-      <button use-stock="true" label="gtk-quit" width-request="100">
-      </button>
-    </hbox>
-  </vbox>
-</window>
-'
 
 export about_dialog='
 
@@ -66,7 +51,7 @@ export about_dialog='
         <input file icon="dialog-information-symbolic"></input>
         <height>18</height>
         <label>"License"</label>
-        <action>gtkdialog --program=license_dialog & </action>
+        <action>exo-open --launch TerminalEmulator sh -c "cat /usr/share/licenses/xfce4-sysinfo/LICENSE | less"</action>
       </button>
       <button>
         <input file icon="software-update-available-symbolic"></input>
