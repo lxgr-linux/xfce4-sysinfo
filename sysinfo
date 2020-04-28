@@ -57,7 +57,7 @@ export about_dialog='
         <input file icon="software-update-available-symbolic"></input>
         <height>18</height>
         <label>"Update this software"</label>
-        <action>zenity --info --text "The latest version of this software will be downloaded and installed from the AUR. You will have to type in your password!" && xfce4-terminal -x sh -c "mkdir ~/.build_AUR ; cd ~/.build_AUR ; echo :: Cloning git repository ; git clone https://aur.archlinux.org/xfce4-sysinfo.git ; cd ./xfce4-sysinfo ; echo :: Making and installing the package ; makepkg -sif ; cd ; echo :: Cleaning up ; sudo rm -r ~/.build_AUR ; echo :: Done! ; zenity --info --text "Done!""</action>
+        <action>zenity --info --text "The latest version of this software will be downloaded and installed from the AUR. You will have to type in your password!" && exo-open --launch TerminalEmulator sh -c "mkdir ~/.build_AUR ; cd ~/.build_AUR ; echo :: Cloning git repository ; git clone https://aur.archlinux.org/xfce4-sysinfo.git ; cd ./xfce4-sysinfo ; echo :: Making and installing the package ; makepkg -sif ; cd ; echo :: Cleaning up ; sudo rm -r ~/.build_AUR ; echo :: Done! ; zenity --info --text "Done!""</action>
       </button>
       <button use-stock="true" label="gtk-quit" width-request="100">
       </button>
@@ -82,7 +82,7 @@ export MAIN_DIALOG='
 Here you can see your systems information"</label></text>
       </vbox>
     </hbox>
-    <hbox width-request="360">
+    <hbox width-request="370">
       <text><label>" "</label></text>
     </hbox>
   </hbox>
@@ -92,23 +92,23 @@ Here you can see your systems information"</label></text>
          <vbox>
            <text height-request="0"><label>" "</label></text>
            <text use-markup="true"><label>"<b>General: </b>"</label></text>
-           <text><label> Operatingsystem: '$PRETTY_NAME'</label></text>
-           <text><label> Kernel: '$(uname -msr)'</label></text>
-           <text><label> XFCE version: '$(xfce4-session -V | egrep xfce4-session | awk {'print $2'})'</label></text>
+           <text wrap="true" width-chars="46"><label> Operatingsystem: '$PRETTY_NAME'</label></text>
+           <text wrap="true" width-chars="46"><label> Kernel: '$(uname -msr)'</label></text>
+           <text wrap="true" width-chars="46"><label> XFCE version: '$(xfce4-session -V | egrep xfce4-session | awk {'print $2'})'</label></text>
            <hbox homogeneous="true" spacing="0">
              <hbox spacing="0">
-               <text><label>Installed Packages: '$( pacman -Qq | wc -l)' (pacman)</label></text>
+               <text wrap="true"><label>Installed Packages: '$( pacman -Qq | wc -l)' (pacman)</label></text>
                <button relief="2">
                  <input file icon="software-update-available-symbolic"></input>
                  <height>18</height>
                  <label>"Install updates"</label>
-                 <action>zenity --password --title "Password" | sudo -S xfce4-terminal -x pacman -Syu ; zenity --info --text "Done!"</action>
+                 <action>zenity --password --title "Password" | sudo -S exo-open --launch TerminalEmulator pacman -Syu ; zenity --info --text "Done!"</action>
                </button>
              </hbox>
            </hbox>
         <hbox homogeneous="true" spacing="0">
           <hbox spacing="0">
-            <text><label> Hostname: '$(hostname)'</label></text>
+            <text wrap="true"><label> Hostname: '$(hostname)'</label></text>
             <button relief="2">
               <input file icon="document-edit"></input>
               <height>18</height>
