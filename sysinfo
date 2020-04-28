@@ -79,14 +79,10 @@ export MAIN_DIALOG='
          <height>60</height><width>60</width>
        </pixmap>
       </hbox>
-       <vbox homogeneous="true" width-request="200" space-fill="true">
+       <vbox homogeneous="true" width-request="670" space-fill="true">
          <text use-markup="true"  justify="0" wrap="true" xalign="0"><label>"<b><big>Systeminfo</big></b>
-Here you can see your
-systems information"</label></text>
+Here you can see your systems information"</label></text>
       </vbox>
-      <hbox space-expand="true">
-        <text width-request="460"><label>" "</label></text>
-      </hbox>
       </hbox>
     </hbox>
    <frame>
