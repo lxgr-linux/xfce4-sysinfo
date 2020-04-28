@@ -69,7 +69,7 @@ export about_dialog='
 
 export MAIN_DIALOG='
 
-<window title="Systeminfo" icon-name="preferences-desktop" resizable="false" width-request="750" height-request="auto">
+<window title="Systeminfo" icon-name="preferences-desktop" resizable="false" width-request="700" height-request="auto">
  <vbox>
   <hbox space-expand="true">
     <hbox xalign="0">
@@ -79,7 +79,7 @@ export MAIN_DIALOG='
          <height>60</height><width>60</width>
        </pixmap>
       </hbox>
-       <vbox homogeneous="true" width-request="670" space-fill="true">
+       <vbox homogeneous="true" width-request="620" space-fill="true">
          <text use-markup="true"  justify="0" wrap="true" xalign="0"><label>"<b><big>Systeminfo</big></b>
 Here you can see your systems information"</label></text>
       </vbox>
