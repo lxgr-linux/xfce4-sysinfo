@@ -101,8 +101,8 @@ Here you can see your systems information"</label></text>
                <button relief="2">
                  <input file icon="software-update-available-symbolic"></input>
                  <height>18</height>
-                 <label>"Install updates"</label>
-                 <action>zenity --password --title "Password" | sudo -S exo-open --launch TerminalEmulator pacman -Syu ; zenity --info --text "Done!"</action>
+                 <label>"Update"</label>
+                 <action>zenity --info --text "Your system will be updated" && zenity --password --title "Password" | sudo -S exo-open --launch TerminalEmulator sh -c "pacman -Syu ; echo :: Done; zenity --info --text "Done!""</action>
                </button>
              </hbox>
            </hbox>
