@@ -77,12 +77,13 @@ export MAIN_DIALOG='
          <input file icon="dialog-information-symbolic"></input>
          <height>60</height><width>60</width>
        </pixmap>
-       <vbox homogeneous="true">
+       <vbox homogeneous="true" width-request="130">
          <text use-markup="true"  justify="0" wrap="true"><label>"<b><big>Systeminfo</big></b>
-Here you can see your systems information"</label></text>
+Here you can see your
+systems information"</label></text>
       </vbox>
     </hbox>
-    <hbox width-request="370">
+    <hbox width-request="500">
       <text><label>" "</label></text>
     </hbox>
   </hbox>
@@ -112,7 +113,7 @@ Here you can see your systems information"</label></text>
             <button relief="2">
               <input file icon="document-edit"></input>
               <height>18</height>
-              <label>"Change"</label>
+              <label>"Change hostname"</label>
               <action>zenity --password --title "Password"| sudo -S hostnamectl set-hostname $(zenity --entry --text "Set new hostname:" --entry-text $(hostname) --title="New Hostname")</action>
             </button>
           </hbox>
