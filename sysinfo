@@ -69,7 +69,7 @@ export about_dialog='
 
 export MAIN_DIALOG='
 
-<window title="Systeminfo" icon-name="preferences-desktop" resizable="false" width-request="auto" height-request="auto">
+<window title="Systeminfo" icon-name="preferences-desktop" resizable="false" width-request="750" height-request="auto">
  <vbox>
   <hbox space-expand="true">
     <hbox xalign="0">
@@ -85,7 +85,7 @@ Here you can see your
 systems information"</label></text>
       </vbox>
       <hbox space-expand="true">
-        <text width-request="500"><label>" "</label></text>
+        <text width-request="460"><label>" "</label></text>
       </hbox>
       </hbox>
     </hbox>
