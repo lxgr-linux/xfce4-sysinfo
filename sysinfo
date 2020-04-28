@@ -23,7 +23,7 @@ update(){
 }
 export license_dialog='
 
-<window title="Systeminfo License" icon-name="dialog-information-symbolic" resizable="true" width-request="auto" height-request="auto">
+<window title="Systeminfo License" icon-name="dialog-information-symbolic" resizable="true" width-request="auto" height-request="800">
   <vbox>
     <text>
       <label>License:</label>
