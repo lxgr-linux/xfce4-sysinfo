@@ -71,22 +71,24 @@ export MAIN_DIALOG='
 
 <window title="Systeminfo" icon-name="preferences-desktop" resizable="false" width-request="auto" height-request="auto">
  <vbox>
-   <hbox>
-     <hbox pack-type="1">
-       <pixmap>
+  <hbox space-expand="true">
+    <hbox xalign="0">
+      <hbox width-request="auto">
+       <pixmap xalign="0">
          <input file icon="dialog-information-symbolic"></input>
          <height>60</height><width>60</width>
        </pixmap>
-       <vbox homogeneous="true" space-expand="true">
-         <text use-markup="true"  justify="0" wrap="true"><label>"<b><big>Systeminfo</big></b>
+      </hbox>
+       <vbox homogeneous="true" width-request="200" space-fill="true">
+         <text use-markup="true"  justify="0" wrap="true" xalign="0"><label>"<b><big>Systeminfo</big></b>
 Here you can see your
 systems information"</label></text>
       </vbox>
+      <hbox>
+        <text width-request="425"><label>" "</label></text>
+      </hbox>
+      </hbox>
     </hbox>
-    <hbox width-request="500">
-      <text><label>" "</label></text>
-    </hbox>
-  </hbox>
    <frame>
      <notebook show-tabs="false">
        <hbox homogeneous="true">
