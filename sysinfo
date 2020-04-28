@@ -77,7 +77,7 @@ export MAIN_DIALOG='
          <input file icon="dialog-information-symbolic"></input>
          <height>60</height><width>60</width>
        </pixmap>
-       <vbox homogeneous="true" width-request="130">
+       <vbox homogeneous="true" space-expand="true">
          <text use-markup="true"  justify="0" wrap="true"><label>"<b><big>Systeminfo</big></b>
 Here you can see your
 systems information"</label></text>
