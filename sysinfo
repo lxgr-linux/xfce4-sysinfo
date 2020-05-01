@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 . /etc/os-release
 
@@ -43,7 +43,7 @@ export about_dialog='
         </button>
       </hbox>
     </hbox>
-    <text><label>Version: '$(pacman -Qs xfce4-sysinfo | egrep xfce4-sysinfo | awk {'print $2'})'</label></text>
+    <text><label>Version: '$(pacman -Qs xfce4-sysinfo  | egrep xfce4-sysinfo | awk {'print $2'})'</label></text>
     <text><label>" "</label></text>
     <hseparator width-request="auto"></hseparator>
     <hbox spacing="0">
@@ -96,7 +96,7 @@ Here you can see your systems information"</label></text>
            <text wrap="true" width-chars="46"><label> XFCE version: '$(xfce4-session -V | egrep xfce4-session | awk {'print $2'})'</label></text>
            <hbox homogeneous="true" spacing="0">
              <hbox spacing="0">
-               <text wrap="true"><label>Installed Packages: '$( pacman -Qq | wc -l)' (pacman)</label></text>
+               <text wrap="true"><label>Installed Packages: '$( pacman -Qq || echo 1 | wc -l)' (pacman)</label></text>
                <button relief="2">
                  <input file icon="software-update-available-symbolic"></input>
                  <height>18</height>
@@ -119,9 +119,9 @@ Here you can see your systems information"</label></text>
         <vbox>
           <text><label>" "</label></text>
           <text use-markup="true"><label>"<b>Hardware: </b>"</label></text>
-          <text wrap="true" width-chars="46"><label> CPU: '$(lscpu | egrep Modellname | awk {'print $2,$3,$4,$5,$6,$7,$8,$9,$10'})'</label></text>
+          <text wrap="true" width-chars="46"><label> CPU: '$(egrep "model name" /proc/cpuinfo | uniq | awk {'print $4,$5,$6,$7,$8,$9,$10,$11,$12'})'</label></text>
           <text wrap="true" width-chars="46"><label> GPU: '$(lspci | egrep VGA | awk {'print $5,$6,$7,$8,$9,$10,$11'})'</label></text>
-          <text wrap="true" width-chars="46"><label> RAM: '$(free -h | egrep Speicher | awk {'print $2'})'</label></text>
+          <text wrap="true" width-chars="46"><label> RAM: '$(free -h | sed -n '2p' | awk {'print $2'})'</label></text>
           <text wrap="true" width-chars="46"><label> Disk used: '$(df -h | egrep -w ' /' | awk {'print $3'})'/'$(df -h | egrep -w ' /' | awk {'print $2'})'</label></text>
           <text><label>" "</label></text>
         </vbox>
