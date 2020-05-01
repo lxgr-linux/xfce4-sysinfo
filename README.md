@@ -1,6 +1,6 @@
 # xfce4-sysinfo
 
-This piece of software should improve the use of the xfce desktopenvoirement in Arch Linux and Manjaro(I may expand this to other distros).
+This piece of software should improve the use of the xfce desktopenvoirement in Arch Linux and Manjaro(I may expand this to other distros). It now also works on debian, except the self update function.
 
 # dependencies
 
