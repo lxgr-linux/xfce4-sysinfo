@@ -12,7 +12,7 @@ update(){
           mkdir ~/.build
           cd ~/.build
           echo :: Cloning git repository
-          git clone https://xfce4-sysinfo/lxgr-linux/xfce4-sysinfo.git
+          git clone https://github.com/lxgr-linux/xfce4-sysinfo.git
           cd ./xfce4-sysinfo
           echo :: Installing the software
           sudo ./install.sh
