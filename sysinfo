@@ -182,19 +182,24 @@ case $1 in
 		-h|--help)
                 echo "xfce4-sysinfo"
                 echo "Usage: $0 <option> <string>"
-                echo "      -s|--start   : Starts xfce4-sysinfo"
-                echo "      -a|--about   : Displays about-dialog"
-                echo "      -v|--version : Displays version"
-                echo "      -c|--console : Just gives console output"
-                echo "      -d|--distro  : Specifys the logo which is printed out (possible options: $(ls /usr/share/xfce4-sysinfo/icons/ | sed s/.svg/""/g | xargs))"
-                echo "      -l|--license : Displays license"
-                echo "      -u|--update : Updates this software via the AUR (will just work on archlinux!)"
-                echo "      -h|--help    : Displays this help-dialog"
-                echo "      --help-logo  : Displays help for your distributions logo in the systeminfo dialog"
+                echo "      -s|--start        : Starts xfce4-sysinfo"
+                echo "      -a|--about        : Displays about-dialog"
+                echo "      -v|--version      : Displays version"
+                echo "      -c|--console      : Just gives console output"
+                echo "      -d|--distro       : Specifys the logo which is printed out (possible options: $(ls /usr/share/xfce4-sysinfo/icons/ | sed s/.svg/""/g | xargs))"
+                echo "      -l|--license      : Displays license"
+                echo "      -u|--update       : Updates this software via the AUR (will just work on archlinux!) or github"
+                echo "      --update-grafical : Same as -u, but wich an gui"
+                echo "      -h|--help         : Displays this help-dialog"
+                echo "      --help-logo       : Displays help for your distributions logo in the systeminfo dialog"
 		exit 0
 		;;
     -u|--update)
       update
+    exit 0
+    ;;
+    --update-grafical)
+      updateg
     exit 0
     ;;
     -c|--console)
