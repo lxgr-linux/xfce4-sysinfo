@@ -46,7 +46,7 @@ export about_dialog='
         </button>
       </hbox>
     </hbox>
-    <text><label>Version: '$(pacman -Qs xfce4-sysinfo  | egrep xfce4-sysinfo | awk {'print $2'})'</label></text>
+    <text><label>Version: '$(sh -c "pacman -Qs xfce4-sysinfo  | egrep xfce4-sysinfo | awk {'print $2'}" || tail -n1 /usr/share/xfce4-sysinfo/version)'</label></text>
     <text><label>" "</label></text>
     <hseparator width-request="auto"></hseparator>
     <hbox spacing="0">
