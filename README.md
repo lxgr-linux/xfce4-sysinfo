@@ -1,28 +1,31 @@
 # xfce4-sysinfo
 
-This piece of software should improve the use of the xfce desktopenvoirement in Arch Linux and Manjaro(I may expand this to other distros). It now also works on debian, except the self update function.
+This piece of software should improve the use of the xfce desktopenvoirement in Arch Linux, Manjaro and Debian(-based)(I may expand this to other distros)
 
 # dependencies
 
-This script needs gktdialog, zenity, xfce4-session, pacman, egrep, awk, hostname and hostnamectl.
+This script needs gktdialog, bash, zenity, xfce4-session, pacman, egrep, awk, hostname and hostnamectl.
 
 
 # installation 
 
-This script is standalone usable, but you may copy it to /usr/bin/.
-In this case you can call it via 'sysinfo'.
-Can also copy the .desktop file to /usr/share/applications to call the script via the xfce menu or the xfce settings.
+Run the install.sh script with root previliges.
 
 # usage
 
 sysinfo -option <br>
 Options:<br>	
- -s|--start   : Start xfce4-sysinfo<br>
- -a|--about   : Display about-dialog<br>
- -v|--version : Display version<br>
- -l|--license : Display license<br>
- -u|--upgrade : Update this software via the AUR (will just work on archlinux!)<br>
- -h|--help    : Display this help-dialog<br>
+      -s|--start        : Starts xfce4-sysinfo<br>
+      -a|--about        : Displays about-dialog<br>
+      -v|--version      : Displays version<br>
+      -c|--console      : Just gives console output<br>
+      -d|--distro       : Specifys the logo which is printed out (possible options: archbang arch debian manjaro)<br>
+      -l|--license      : Displays license<br>
+      -u|--update       : Updates this software via the AUR (will just work on archlinux!) or github<br>
+      --update-grafical : Same as -u, but wich an gui<br>
+      -h|--help         : Displays this help-dialog<br>
+      --help-logo       : Displays help for your distributions logo in the systeminfo dialog<br>
+<br>
  
  # screenshot
 
