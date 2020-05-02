@@ -211,7 +211,7 @@ case $1 in
     exit 0
     ;;
     -v|--version)
-      echo $(pacman -Qs xfce4-sysinfo | egrep xfce4-sysinfo | awk {'print $2'})
+      echo $(pacman -Qs xfce4-sysinfo | egrep xfce4-sysinfo | awk {'print $2'} ; tail -n1 /usr/share/xfce4-sysinfo/version))
     exit 0
     ;;
     * )
