@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 . /etc/os-release
 
 update(){
@@ -21,6 +22,8 @@ update(){
   fi
   echo :: Exit
 }
+
+general(){
 
 export about_dialog='
 
@@ -107,7 +110,7 @@ Here you can see your systems information"</label></text>
            </hbox>
         <hbox homogeneous="true" spacing="0">
           <hbox spacing="0">
-            <text wrap="true"><label> Hostname: '$(hostname)'</label></text>
+            <text wrap="true" auto-refresh="true"><label> Hostname: '$(hostname)'</label></text>
             <button relief="2">
               <input file icon="document-edit"></input>
               <height>18</height>
@@ -120,14 +123,14 @@ Here you can see your systems information"</label></text>
           <text><label>" "</label></text>
           <text use-markup="true"><label>"<b>Hardware: </b>"</label></text>
           <text wrap="true" width-chars="46"><label> CPU: '$(egrep "model name" /proc/cpuinfo | uniq | awk {'print $4,$5,$6,$7,$8,$9,$10,$11,$12'})'</label></text>
-          <text wrap="true" width-chars="46"><label> GPU: '$(lspci | egrep VGA | awk {'print $5,$6,$7,$8,$9,$10,$11'})'</label></text>
+          <text wrap="true" width-chars="46"><label> GPU: '$(lspci | egrep VGA | awk {'print $5,$6,$7,$8,$9,$10,$11'})' '$(lspci | egrep 3D | awk {'print $4,$5,$6,$7,$8,$9,$10,$11'})'</label></text>
           <text wrap="true" width-chars="46"><label> RAM: '$(free -h | sed -n '2p' | awk {'print $2'})'</label></text>
           <text wrap="true" width-chars="46"><label> Disk used: '$(df -h | egrep -w ' /' | awk {'print $3'})'/'$(df -h | egrep -w ' /' | awk {'print $2'})'</label></text>
           <text><label>" "</label></text>
         </vbox>
       </vbox>
       <vbox homogeneous="true">
-        <pixmap>
+        <pixmap auto-refresh="true">
           <input file>/usr/share/xfce4-sysinfo/icons/'$ID'.svg</input>
           <height>150</height><width>150</width>
         </pixmap>
@@ -145,40 +148,75 @@ Here you can see your systems information"</label></text>
  </vbox>
 </window>
 '
+}
 case $1 in
     -s|--start)
+    general
     gtkdialog --program=MAIN_DIALOG
     exit 0
     ;;
 		-h|--help)
                 echo "xfce4-sysinfo"
-                echo "Usage: $0 <option>"
-                echo "      -s|--start   : Start xfce4-sysinfo"
-                echo "      -a|--about   : Display about-dialog"
-                echo "      -v|--version : Display version"
-                echo "      -l|--license : Display license"
-                echo "      -u|--upgrade : Update this software via the AUR (will just work on archlinux!)"
-                echo "      -h|--help    : Display this help-dialog"
+                echo "Usage: $0 <option> <string>"
+                echo "      -s|--start   : Starts xfce4-sysinfo"
+                echo "      -a|--about   : Displays about-dialog"
+                echo "      -v|--version : Displays version"
+                echo "      -c|--console : Just gives console output"
+                echo "      -d|--distro  : Specifys the logo which is printed out (possible options: $(ls /usr/share/xfce4-sysinfo/icons/ | sed s/.svg/""/g | xargs))"
+                echo "      -l|--license : Displays license"
+                echo "      -u|--upgrade : Updates this software via the AUR (will just work on archlinux!)"
+                echo "      -h|--help    : Displays this help-dialog"
+                echo "      --help-logo  : Displays help for your distributions logo in the systeminfo dialog"
 		exit 0
 		;;
     -u|--update)
-    update
+      update
+    exit 0
+    ;;
+    -c|--console)
+      echo General:
+      echo "  Operatingsystem:" $PRETTY_NAME
+      echo "  Kernel:" $(uname -msr)
+      echo "  XFCE version:" $(xfce4-session -V | egrep xfce4-session | awk {'print $2'})
+      echo "  Installed Packages:" $(sh -c "pacman -Qq || apt list --installed" | wc -l)
+      echo "  Hostname: $(hostname)"
+      echo Hardware:
+      echo "  CPU:" $(egrep "model name" /proc/cpuinfo | uniq | awk {'print $4,$5,$6,$7,$8,$9,$10,$11,$12'})
+      echo "  GPU:" $(lspci | egrep VGA | awk {'print $5,$6,$7,$8,$9,$10,$11'}) $(lspci | egrep 3D | awk {'print $4,$5,$6,$7,$8,$9,$10,$11'})
+      echo "  RAM:" $(free -h | sed -n '2p' | awk {'print $2'})
+      echo "  Disk used:" $(df -h | egrep -w ' /' | awk {'print $3'})'/'$(df -h | egrep -w ' /' | awk {'print $2'})
+    exit 0
+    ;;
+    -d|--distro)
+      ID=$2
+      echo :: $ID
+      general
+      gtkdialog --program=MAIN_DIALOG
     exit 0
     ;;
     -l|--license)
-    cat /usr/share/licenses/xfce4-sysinfo/LICENSE | less
+      cat /usr/share/licenses/xfce4-sysinfo/LICENSE | less
     exit 0
     ;;
     -a|--about)
-    gtkdialog --program=about_dialog
+      general
+      gtkdialog --program=about_dialog
+    exit 0
+    ;;
+    --help-logo)
+      echo "This is the help/info text for your distributions logo in the systeminfo dialog:"
+      echo "     The available logos are stored in /usr/share/xfce4-sysinfo/icons."
+      echo "     If the logo of the Distribution you are using is not displayed, you can copy it to /usr/share/xfce4-sysinfo/icons"
+      echo "     Name it $ID.svg"
     exit 0
     ;;
     -v|--version)
-    echo $(pacman -Qs xfce4-sysinfo | egrep xfce4-sysinfo | awk {'print $2'})
+      echo $(pacman -Qs xfce4-sysinfo | egrep xfce4-sysinfo | awk {'print $2'})
     exit 0
     ;;
     * )
-    gtkdialog --program=MAIN_DIALOG
+      general
+      gtkdialog --program=MAIN_DIALOG
     exit 0
     ;;
 esac
