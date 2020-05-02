@@ -1,4 +1,5 @@
 #!/bin/bash
+## xfce4-sysinfo
 
 . /etc/os-release
 
