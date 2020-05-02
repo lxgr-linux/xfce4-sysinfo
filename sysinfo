@@ -43,6 +43,41 @@ update(){
   fi
 }
 
+update-g(){
+  if [ -e /usr/share/xfce4-sysinfo/version ]
+    then
+      zenity --info --text "The latest version of this software will be downloaded and installed. You will have to type in your password!" &&
+      exo-open --launch TerminalEmulator sh -c "
+      mkdir ~/.build;
+      cd ~/.build;
+      echo :: Cloning git repository;
+      git clone https://github.com/lxgr-linux/xfce4-sysinfo.git;
+          cd ./xfce4-sysinfo;
+      echo :: Installing the software;
+      sudo ./install.sh;
+      cd;
+      echo :: Cleaning up;
+      sudo rm -r ~/.build;
+      echo :: Done!;
+      zenity --info --text 'Done'"
+    else
+      zenity --info --text "The latest version of this software will be downloaded and installed from the AUR. You will have to type in your password!" &&
+      exo-open --launch TerminalEmulator sh -c "
+      mkdir ~/.build_AUR;
+      cd ~/.build_AUR;
+      echo :: Cloning git repository;
+      git clone https://aur.archlinux.org/xfce4-sysinfo.git;
+      cd ./xfce4-sysinfo;
+      echo :: Making and installing the package;
+      makepkg -sif;
+      cd;
+      echo :: Cleaning up;
+      sudo rm -r ~/.build_AUR;
+      echo :: Done!;
+      zenity --info --text 'Done'"
+  fi
+}
+
 general(){
 
 export about_dialog='
@@ -80,7 +115,7 @@ export about_dialog='
         <input file icon="software-update-available-symbolic"></input>
         <height>18</height>
         <label>"Update this software"</label>
-        <action>zenity --info --text "The latest version of this software will be downloaded and installed from the AUR. You will have to type in your password!" && exo-open --launch TerminalEmulator sh -c "mkdir ~/.build_AUR ; cd ~/.build_AUR ; echo :: Cloning git repository ; git clone https://aur.archlinux.org/xfce4-sysinfo.git ; cd ./xfce4-sysinfo ; echo :: Making and installing the package ; makepkg -sif ; cd ; echo :: Cleaning up ; sudo rm -r ~/.build_AUR ; echo :: Done! ; zenity --info --text "Done!""</action>
+        <action>update-g</action>
       </button>
       <button use-stock="true" label="gtk-quit" width-request="100">
       </button>
