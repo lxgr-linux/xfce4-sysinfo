@@ -20,6 +20,8 @@ update(){
           echo :: Cleaning up
           sudo rm -r ~/.build
           echo :: Done!
+        fi
+        echo :: Exit
     else
       echo "The latest version of this software will be downloaded and installed from the AUR. You will have to type in your password! Do you want this? (y/n)"
       read ans
