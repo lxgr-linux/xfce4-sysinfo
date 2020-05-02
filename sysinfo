@@ -184,7 +184,7 @@ case $1 in
                 echo "      -c|--console : Just gives console output"
                 echo "      -d|--distro  : Specifys the logo which is printed out (possible options: $(ls /usr/share/xfce4-sysinfo/icons/ | sed s/.svg/""/g | xargs))"
                 echo "      -l|--license : Displays license"
-                echo "      -u|--upgrade : Updates this software via the AUR (will just work on archlinux!)"
+                echo "      -u|--update : Updates this software via the AUR (will just work on archlinux!)"
                 echo "      -h|--help    : Displays this help-dialog"
                 echo "      --help-logo  : Displays help for your distributions logo in the systeminfo dialog"
 		exit 0
