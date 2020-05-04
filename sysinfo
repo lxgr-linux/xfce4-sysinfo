@@ -51,12 +51,6 @@ updateg(){
 
 general(){
 
-if [ $ID == debian ]
-   then
-      icon=" "icon='"'emblem-$ID'"'
-      file=""
-    fi
-
 case $ID_LIKE in
     debian)
     icon=" "icon='"'emblem-$ID'"'
@@ -70,6 +64,13 @@ case $ID_LIKE in
     icon=" "icon='"'$LOGO'"'
     ;;
 esac
+
+if [ $ID == debian ]
+   then
+      icon=" "icon='"'emblem-$ID'"'
+      file=""
+    fi
+
 
 export about_dialog='
 
