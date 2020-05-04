@@ -1,20 +1,20 @@
 # xfce4-sysinfo
 
-This piece of software should improve the use of the xfce desktopenvoirement in Arch Linux, Manjaro and Debian(-based)(I may expand this to other distros)
+This piece of software should improve the use of the xfce desktopenvoirement in Arch Linux, Manjaro and Debian(-based), Fedora(I may expand this to other distros)
 
 # dependencies
 
 This script needs gktdialog, bash, zenity, xfce4-session, pacman, egrep, awk, hostname and hostnamectl.
 
 
-# installation 
+# installation
 
 Run the install.sh script with root previliges.
 
 # usage
 
 sysinfo -option <br>
-Options:<br>	
+Options:<br>
       -s|--start        : Starts xfce4-sysinfo<br>
       -a|--about        : Displays about-dialog<br>
       -v|--version      : Displays version<br>
@@ -26,7 +26,7 @@ Options:<br>
       -h|--help         : Displays this help-dialog<br>
       --help-logo       : Displays help for your distributions logo in the systeminfo dialog<br>
 <br>
- 
+
  # screenshot
 
 <img src=https://github.com/lxgr-linux/xfce4-sysinfo/blob/master/xfce4-sysinfo.png>
