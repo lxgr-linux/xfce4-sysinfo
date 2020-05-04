@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 
 cp ./sysinfo /usr/bin/
 cp ./xfce4-sysinfo.desktop /usr/share/applications/
