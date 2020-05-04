@@ -71,7 +71,7 @@ general(){
         file="/usr/share/xfce4-sysinfo/icons/ubuntu.png"
         ;;
         linuxmint)
-        icon=""
+        icon=" "icon='"'linuxmint-logo'"'
         file="/usr/share/xfce4-sysinfo/icons/mint.png"
         ;;
         *)
