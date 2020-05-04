@@ -68,7 +68,7 @@ general(){
         ;;
         ubuntu)
         icon=""
-        file="/usr/share/xfce4-sysinfo/icons/ubuntu.svg"
+        file="/usr/share/xfce4-sysinfo/icons/ubuntu.png"
         ;;
         *)
         icon=" "icon='"'$LOGO'"'
