@@ -212,7 +212,7 @@ case $1 in
                 echo "      -a|--about        : Displays about-dialog"
                 echo "      -v|--version      : Displays version"
                 echo "      -c|--console      : Just gives console output"
-                echo "      -d|--distro       : Specifys the logo which is printed out (possible options: $(ls /usr/share/xfce4-sysinfo/icons/ | sed s/.svg/""/g | xargs))"
+                echo "      -d|--distro       : Specifys the logo which is printed out (possible options: ubuntu, debian)"
                 echo "      -l|--license      : Displays license"
                 echo "      -u|--update       : Updates this software via the AUR (will just work on archlinux!) or github"
                 echo "      --update-grafical : Same as -u, but wich an gui"
