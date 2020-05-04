@@ -156,7 +156,7 @@ Here you can see your systems information"</label></text>
       </vbox>
       <vbox homogeneous="true">
         <pixmap auto-refresh="true">
-          <input file>/usr/share/xfce4-sysinfo/icons/'$ID'.svg</input>
+          <input file icon="'$LOGO'"></input>
           <height>150</height><width>150</width>
         </pixmap>
       </vbox>
