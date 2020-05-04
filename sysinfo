@@ -2,6 +2,7 @@
 ## xfce4-sysinfo
 
 . /etc/os-release
+file=""
 
 update(){
   if [ -e /usr/share/xfce4-sysinfo/version ]
@@ -49,6 +50,30 @@ updateg(){
 }
 
 general(){
+
+#  if [ $ID == debian ]
+#    then
+#      icon=""
+#      file="/usr/share/xfce4-sysinfo/icons/debian.svg"
+#    else
+#      icon=" "icon='"'$LOGO'"'
+#      echo $icon
+#      echo $file
+#    fi
+
+    case $ID in
+        debian)
+        icon=""
+        file="/usr/share/xfce4-sysinfo/icons/debian.svg"
+        ;;
+        ubuntu)
+        icon=""
+        file="/usr/share/xfce4-sysinfo/icons/ubuntu.svg"
+        ;;
+        *)
+        icon=" "icon='"'$LOGO'"'
+        ;;
+    esac
 
 export about_dialog='
 
@@ -156,7 +181,7 @@ Here you can see your systems information"</label></text>
       </vbox>
       <vbox homogeneous="true">
         <pixmap auto-refresh="true">
-          <input file icon="'$LOGO'"></input>
+          <input file'$icon'>'$file'</input>
           <height>150</height><width>150</width>
         </pixmap>
       </vbox>
