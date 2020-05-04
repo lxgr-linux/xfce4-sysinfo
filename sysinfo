@@ -51,29 +51,25 @@ updateg(){
 
 general(){
 
-#  if [ $ID == debian ]
-#    then
-#      icon=""
-#      file="/usr/share/xfce4-sysinfo/icons/debian.svg"
-#    else
-#      icon=" "icon='"'$LOGO'"'
-#      echo $icon
-#      echo $file
-#    fi
+if [ $ID == debian ]
+   then
+      icon=" "icon='"'emblem-$ID'"'
+      file=""
+    fi
 
-    case $ID in
-        debian)
-        icon=""
-        file="/usr/share/xfce4-sysinfo/icons/debian.svg"
-        ;;
-        ubuntu)
-        icon=""
-        file="/usr/share/xfce4-sysinfo/icons/ubuntu.png"
-        ;;
-        *)
-        icon=" "icon='"'$LOGO'"'
-        ;;
-    esac
+case $ID_LIKE in
+    debian)
+    icon=" "icon='"'emblem-$ID'"'
+    file=""
+    ;;
+    ubuntu)
+    icon=" "icon='"'emblem-$ID'"'
+    file=""
+    ;;
+    *)
+    icon=" "icon='"'$LOGO'"'
+    ;;
+esac
 
 export about_dialog='
 
