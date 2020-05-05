@@ -162,7 +162,7 @@ Here you can see your systems information"</label></text>
        <hbox homogeneous="true">
          <vbox spacing="1">
            <text height-request="0"><label>" "</label></text>
-           <text use-markup="true"><label>"<b>General: </b>"</label></text>
+           <text use-markup="true"><label>"<b>General:</b>"</label></text>
            <text wrap="true" width-chars="45" use-markup="true"><label>"<b> Operatingsystem:</b> '$PRETTY_NAME'"</label></text>
            <text wrap="true" width-chars="46" use-markup="true"><label>"<b> Kernel:</b> '$(uname -msr)'"</label></text>
            <text wrap="true" width-chars="46" use-markup="true"><label>"<b> XFCE version:</b> '$(xfce4-session -V | egrep xfce4-session | awk {'print $2'})'"</label></text>
@@ -185,14 +185,14 @@ Here you can see your systems information"</label></text>
             <button relief="2">
               <input file icon="document-edit"></input>
               <height>18</height>
-              <label>"Change hostname"</label>
+              <label>"Change"</label>
               <action>zenity --password --title "Password"| sudo -S hostnamectl set-hostname $(zenity --entry --text "Set new hostname:" --entry-text $(hostname) --title="New Hostname")</action>
             </button>
           </hbox>
         </hbox>
         <vbox spacing="1">
           <text><label>" "</label></text>
-          <text use-markup="true"><label>"<b>Hardware: </b>"</label></text>
+          <text use-markup="true"><label>"<b>Hardware:</b>"</label></text>
           <text wrap="true" use-markup="true" width-chars="50"><label>"<b> CPU:</b> '$(egrep "model name" /proc/cpuinfo | uniq | awk {'print $4,$5,$6,$7,$8,$9,$10,$11,$12'})'"</label></text>
           <text wrap="true" use-markup="true" width-chars="50" justify="2"><label>"<b> GPU:</b> '$(lspci | egrep VGA | awk {'print $5,$6,$7,$8,$9,$10,$11'})' '$(lspci | egrep 3D | awk {'print $4,$5,$6,$7,$8,$9,$10,$11'})'"</label></text>
           <text wrap="true" use-markup="true" width-chars="50"><label>"<b> RAM:</b> '$(free -h | sed -n '2p' | awk {'print $2'})'"</label></text>
