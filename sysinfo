@@ -150,7 +150,8 @@ Here you can see your systems information"</label></text>
            <text wrap="true" width-chars="46"><label> XFCE version: '$(xfce4-session -V | egrep xfce4-session | awk {'print $2'})'</label></text>
            <hbox homogeneous="true" spacing="0">
              <hbox spacing="0">
-               <text wrap="true"><label>Installed Packages: '$(sh -c "pacman -Qq || apt list --installed || rpm -qa" | wc -l)'</label></text>
+               <text wrap="true" justify="1"><label>"Installed Packages: '$(sh -c "pacman -Qq || apt list --installed || rpm -qa" | wc -l)' (Packet-manager)
+'$(flatpak list | wc -l)' (Flatpak) '$(snap list | wc -l)' (Snap)"</label></text>
                <button relief="2">
                  <input file icon="software-update-available-symbolic"></input>
                  <height>18</height>
