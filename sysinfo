@@ -62,14 +62,14 @@ general(){
 #    fi
 
     case $ID in
-        debian | kali)
+        debian | kali| ubuntu)
         icon=" "icon='"'emblem-$ID'"'
-        file="/usr/share/xfce4-sysinfo/icons/debian.svg"
+        file=""
         ;;
-        ubuntu)
-        icon=""
-        file="/usr/share/xfce4-sysinfo/icons/ubuntu.png"
-        ;;
+        #ubuntu)
+        #icon=" "icon='"'
+        #file="/usr/share/xfce4-sysinfo/icons/ubuntu.png"
+        #;;
         linuxmint)
         icon=" "icon='"'linuxmint-logo'"'
         file="/usr/share/xfce4-sysinfo/icons/mint.png"
