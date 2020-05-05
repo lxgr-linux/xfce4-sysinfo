@@ -83,12 +83,15 @@ general(){
 if [ -e /bin/pacman ]
   then
     pac=Pacman
+    ipac=$(pacman -Qq | wc -l)
 elif [ -e /bin/yum ]
   then
     pac=Yum
+    ipac=$(rpm -qa | wc -l)
 elif [ -e /usr/bin/apt ]
   then
     pac=Apt
+    ipac=$(apt list --installed | wc -l)
 fi
 
 export about_dialog='
@@ -165,7 +168,7 @@ Here you can see your systems information"</label></text>
            <text wrap="true" width-chars="46" use-markup="true"><label>"<b> XFCE version:</b> '$(xfce4-session -V | egrep xfce4-session | awk {'print $2'})'"</label></text>
            <hbox homogeneous="true" spacing="0">
              <hbox spacing="0">
-               <text wrap="true" justify="1" use-markup="true"><label>"<b>Installed Packages:</b> '$(sh -c "pacman -Qq || apt list --installed || rpm -qa" | wc -l)' ('$pac')
+               <text wrap="true" justify="1" use-markup="true"><label>"<b>Installed Packages:</b> '$ipac' ('$pac')
 '$(flatpak list | wc -l)' (Flatpak) '$(snap list | wc -l)' (Snap)"</label></text>
                <button relief="2">
                  <input file icon="software-update-available-symbolic"></input>
