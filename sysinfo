@@ -180,7 +180,7 @@ Here you can see your systems information"</label></text>
            </hbox>
         <hbox homogeneous="true" spacing="0">
           <hbox spacing="0">
-            <text wrap="true" auto-refresh="true" use-markup="true" justify="2"><label>"<b>Hostname:</b>
+            <text wrap="true" auto-refresh="true" use-markup="true" justify="1"><label>"<b>Hostname:</b>
 '$(hostname)'"</label></text>
             <button relief="2">
               <input file icon="document-edit"></input>
