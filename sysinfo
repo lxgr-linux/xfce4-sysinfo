@@ -82,13 +82,13 @@ general(){
 
 if [ -e /bin/pacman ]
   then
-    pac=pacman
+    pac=Pacman
 elif [ -e /bin/yum ]
   then
-    pac=yum
+    pac=Yum
 elif [ -e /usr/bin/apt ]
   then
-    pac=app
+    pac=Apt
 fi
 
 export about_dialog='
