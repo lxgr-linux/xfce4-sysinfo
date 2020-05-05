@@ -76,6 +76,17 @@ general(){
         ;;
     esac
 
+if [ -e /bin/pacman ]
+  then
+    pac=pacman
+elif [ -e /bin/yum ]
+  then
+    pac=yum
+elif [ -e /bin/apt ]
+  then
+    pac=app
+fi
+
 export about_dialog='
 
 <window title="About Systeminfo" icon-name="dialog-information-symbolic" resizable="true" width-request="500" height-request="auto">
@@ -150,7 +161,7 @@ Here you can see your systems information"</label></text>
            <text wrap="true" width-chars="46"><label> XFCE version: '$(xfce4-session -V | egrep xfce4-session | awk {'print $2'})'</label></text>
            <hbox homogeneous="true" spacing="0">
              <hbox spacing="0">
-               <text wrap="true" justify="1"><label>"Installed Packages: '$(sh -c "pacman -Qq || apt list --installed || rpm -qa" | wc -l)' (Packet-manager)
+               <text wrap="true" justify="1"><label>"Installed Packages: '$(sh -c "pacman -Qq || apt list --installed || rpm -qa" | wc -l)' ('$pac')
 '$(flatpak list | wc -l)' (Flatpak) '$(snap list | wc -l)' (Snap)"</label></text>
                <button relief="2">
                  <input file icon="software-update-available-symbolic"></input>
