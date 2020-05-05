@@ -60,6 +60,8 @@ general(){
 #      echo $file
 #    fi
 
+##getting icon
+
     case $ID in
         debian | kali | ubuntu)
         icon='"'emblem-$ID'"'
@@ -76,13 +78,15 @@ general(){
         ;;
     esac
 
+##getting packagemanager
+
 if [ -e /bin/pacman ]
   then
     pac=pacman
 elif [ -e /bin/yum ]
   then
     pac=yum
-elif [ -e /bin/apt ]
+elif [ -e /usr/bin/apt ]
   then
     pac=app
 fi
