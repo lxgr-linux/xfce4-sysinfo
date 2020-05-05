@@ -2,7 +2,6 @@
 ## xfce4-sysinfo
 
 . /etc/os-release
-file=""
 
 update(){
   if [ -e /usr/share/xfce4-sysinfo/version ]
@@ -62,20 +61,18 @@ general(){
 #    fi
 
     case $ID in
-        debian | kali| ubuntu)
-        icon=" "icon='"'emblem-$ID'"'
-        file=""
+        debian | kali | ubuntu)
+        icon='"'emblem-$ID'"'
         ;;
         #ubuntu)
         #icon=" "icon='"'
         #file="/usr/share/xfce4-sysinfo/icons/ubuntu.png"
         #;;
         linuxmint)
-        icon=" "icon='"'linuxmint-logo'"'
-        file="/usr/share/xfce4-sysinfo/icons/mint.png"
+        icon='"'linuxmint-logo'"'
         ;;
         *)
-        icon=" "icon='"'$LOGO'"'
+        icon='"'$LOGO'"'
         ;;
     esac
 
@@ -185,7 +182,7 @@ Here you can see your systems information"</label></text>
       </vbox>
       <vbox homogeneous="true">
         <pixmap auto-refresh="true">
-          <input file'$icon'>'$file'</input>
+          <input file icon='$icon'></input>
           <height>150</height><width>150</width>
         </pixmap>
       </vbox>
