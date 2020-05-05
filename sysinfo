@@ -157,7 +157,7 @@ Here you can see your systems information"</label></text>
    <frame>
      <notebook show-tabs="false">
        <hbox homogeneous="true">
-         <vbox>
+         <vbox spacing="1">
            <text height-request="0"><label>" "</label></text>
            <text use-markup="true"><label>"<big><b>General: </b></big>"</label></text>
            <text wrap="true" width-chars="46" use-markup="true"><label>"<b> Operatingsystem:</b> '$PRETTY_NAME'"</label></text>
@@ -186,13 +186,13 @@ Here you can see your systems information"</label></text>
             </button>
           </hbox>
         </hbox>
-        <vbox>
+        <vbox spacing="1">
           <text><label>" "</label></text>
           <text use-markup="true"><label>"<big><b>Hardware: </b></big>"</label></text>
-          <text wrap="true" use-markup="true"><label>"<b> CPU:</b> '$(egrep "model name" /proc/cpuinfo | uniq | awk {'print $4,$5,$6,$7,$8,$9,$10,$11,$12'})'"</label></text>
-          <text wrap="true" use-markup="true" justify="2"><label>"<b> GPU:</b> '$(lspci | egrep VGA | awk {'print $5,$6,$7,$8,$9,$10,$11'})' '$(lspci | egrep 3D | awk {'print $4,$5,$6,$7,$8,$9,$10,$11'})'"</label></text>
-          <text wrap="true" use-markup="true"><label>"<b> RAM:</b> '$(free -h | sed -n '2p' | awk {'print $2'})'"</label></text>
-          <text wrap="true" use-markup="true"><label>"<b> Disk used:</b> '$(df -h | egrep -w ' /' | awk {'print $3'})'/'$(df -h | egrep -w ' /' | awk {'print $2'})'"</label></text>
+          <text wrap="true" use-markup="true" width-chars="50"><label>"<b> CPU:</b> '$(egrep "model name" /proc/cpuinfo | uniq | awk {'print $4,$5,$6,$7,$8,$9,$10,$11,$12'})'"</label></text>
+          <text wrap="true" use-markup="true" width-chars="50" justify="2"><label>"<b> GPU:</b> '$(lspci | egrep VGA | awk {'print $5,$6,$7,$8,$9,$10,$11'})' '$(lspci | egrep 3D | awk {'print $4,$5,$6,$7,$8,$9,$10,$11'})'"</label></text>
+          <text wrap="true" use-markup="true" width-chars="50"><label>"<b> RAM:</b> '$(free -h | sed -n '2p' | awk {'print $2'})'"</label></text>
+          <text wrap="true" use-markup="true" width-chars="50"><label>"<b> Disk used:</b> '$(df -h | egrep -w ' /' | awk {'print $3'})'/'$(df -h | egrep -w ' /' | awk {'print $2'})'"</label></text>
           <text><label>" "</label></text>
         </vbox>
       </vbox>
