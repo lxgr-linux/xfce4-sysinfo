@@ -44,6 +44,42 @@ update(){
   fi
 }
 
+get(){
+  ##getting icon
+
+  case $ID in
+      debian | kali | ubuntu)
+      icon='"'emblem-$ID'"'
+      ;;
+      #ubuntu)
+      #icon=" "icon='"'
+      #file="/usr/share/xfce4-sysinfo/icons/ubuntu.png"
+      #;;
+      linuxmint)
+      icon='"'linuxmint-logo'"'
+      ;;
+      *)
+      icon='"'$LOGO'"'
+      ;;
+  esac
+
+  ##getting packagemanager
+
+  if [ -e /bin/pacman ]
+    then
+      pac=Pacman
+      ipac=$(pacman -Qq | wc -l)
+  elif [ -e /bin/yum ]
+    then
+      pac=Yum
+      ipac=$(rpm -qa | wc -l)
+  elif [ -e /usr/bin/apt ]
+    then
+      pac=Apt
+      ipac=$(apt list --installed | wc -l)
+  fi
+}
+
 updateg(){
   if [ -e /usr/share/xfce4-sysinfo/version ]; then zenity --info --text "The latest version of this software will be downloaded and installed. You will have to type in your password!" && exo-open --launch TerminalEmulator sh -c "mkdir ~/.build; cd ~/.build; echo :: Cloning git repository; git clone https://github.com/lxgr-linux/xfce4-sysinfo.git; cd ./xfce4-sysinfo; echo :: Installing the software; sudo ./install.sh; cd; echo :: Cleaning up; sudo rm -r ~/.build; echo :: Done!; zenity --info --text 'Done'"; else zenity --info --text "The latest version of this software will be downloaded and installed from the AUR. You will have to type in your password!" && exo-open --launch TerminalEmulator sh -c "mkdir ~/.build_AUR; cd ~/.build_AUR; echo :: Cloning git repository; git clone https://aur.archlinux.org/xfce4-sysinfo.git; cd ./xfce4-sysinfo; echo :: Making and installing the package; makepkg -sif; cd; echo :: Cleaning up; sudo rm -r ~/.build_AUR; echo :: Done!; zenity --info --text 'Done'"; fi
 }
@@ -59,40 +95,6 @@ general(){
 #      echo $icon
 #      echo $file
 #    fi
-
-##getting icon
-
-    case $ID in
-        debian | kali | ubuntu)
-        icon='"'emblem-$ID'"'
-        ;;
-        #ubuntu)
-        #icon=" "icon='"'
-        #file="/usr/share/xfce4-sysinfo/icons/ubuntu.png"
-        #;;
-        linuxmint)
-        icon='"'linuxmint-logo'"'
-        ;;
-        *)
-        icon='"'$LOGO'"'
-        ;;
-    esac
-
-##getting packagemanager
-
-if [ -e /bin/pacman ]
-  then
-    pac=Pacman
-    ipac=$(pacman -Qq | wc -l)
-elif [ -e /bin/yum ]
-  then
-    pac=Yum
-    ipac=$(rpm -qa | wc -l)
-elif [ -e /usr/bin/apt ]
-  then
-    pac=Apt
-    ipac=$(apt list --installed | wc -l)
-fi
 
 export about_dialog='
 
@@ -222,6 +224,7 @@ Here you can see your systems information"</label></text>
 }
 case $1 in
     -s|--start)
+    get
     general
     gtkdialog --program=MAIN_DIALOG
     exit 0
@@ -233,12 +236,12 @@ case $1 in
                 echo "      -a|--about        : Displays about-dialog"
                 echo "      -v|--version      : Displays version"
                 echo "      -c|--console      : Just gives console output"
-                echo "      -d|--distro       : Specifys the logo which is printed out (possible options: ubuntu, debian)"
+                echo "      -d|--distro       : Specifys the logo which is printed out (possible options: ubuntu)"
                 echo "      -l|--license      : Displays license"
-                echo "      -u|--update       : Updates this software via the AUR (will just work on archlinux!) or github"
+                echo "      -u|--update       : Updates this software via the AUR or github"
                 echo "      --update-grafical : Same as -u, but wich an gui"
                 echo "      -h|--help         : Displays this help-dialog"
-                echo "      --help-logo       : Displays help for your distributions logo in the systeminfo dialog"
+#                echo "      --help-logo       : Displays help for your distributions logo in the systeminfo dialog"
 		exit 0
 		;;
     -u|--update)
@@ -250,11 +253,12 @@ case $1 in
     exit 0
     ;;
     -c|--console)
+      get
       echo General:
       echo "  Operatingsystem:" $PRETTY_NAME
       echo "  Kernel:" $(uname -msr)
       echo "  XFCE version:" $(xfce4-session -V | egrep xfce4-session | awk {'print $2'})
-      echo "  Installed Packages:" $(sh -c "pacman -Qq || apt list --installed" | wc -l)
+      echo "  Installed Packages: $ipac ($pac) $(flatpak list | wc -l) (Flatpak) $(snap list | wc -l) (Snap)"
       echo "  Hostname: $(hostname)"
       echo Hardware:
       echo "  CPU:" $(egrep "model name" /proc/cpuinfo | uniq | awk {'print $4,$5,$6,$7,$8,$9,$10,$11,$12'})
@@ -266,6 +270,7 @@ case $1 in
     -d|--distro)
       ID=$2
       echo :: $ID
+      get
       general
       gtkdialog --program=MAIN_DIALOG
     exit 0
@@ -279,18 +284,19 @@ case $1 in
       gtkdialog --program=about_dialog
     exit 0
     ;;
-    --help-logo)
-      echo "This is the help/info text for your distributions logo in the systeminfo dialog:"
-      echo "     The available logos are stored in /usr/share/xfce4-sysinfo/icons."
-      echo "     If the logo of the Distribution you are using is not displayed, you can copy it to /usr/share/xfce4-sysinfo/icons"
-      echo "     Name it $ID.svg"
-    exit 0
-    ;;
+#    --help-logo)
+#      echo "This is the help/info text for your distributions logo in the systeminfo dialog:"
+#      echo "     The available logos are stored in /usr/share/xfce4-sysinfo/icons."
+#      echo "     If the logo of the Distribution you are using is not displayed, you can copy it to /usr/share/xfce4-sysinfo/icons"
+#      echo "     Name it $ID.svg"
+#    exit 0
+#    ;;
     -v|--version)
       echo $(pacman -Qs xfce4-sysinfo | egrep xfce4-sysinfo | awk {'print $2'} ; tail -n1 /usr/share/xfce4-sysinfo/version)
     exit 0
     ;;
     * )
+      get
       general
       gtkdialog --program=MAIN_DIALOG
     exit 0
