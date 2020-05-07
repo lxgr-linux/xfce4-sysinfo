@@ -4,7 +4,7 @@ This piece of software should improve the use of the xfce desktopenvoirement in 
 
 # dependencies
 
-This script needs gktdialog, bash, zenity, xfce4-session, pacman, egrep, awk, hostname and hostnamectl.
+This script needs gktdialog (for ubuntu and debian from <link src=https://github.com/lxgr-linux/gtkdialog-compiled>here</link>), bash, zenity, xfce4-session, pacman, egrep, awk, hostname and hostnamectl.
 
 
 # installation
