@@ -219,6 +219,7 @@ Here you can see your systems information"</label></text>
 </window>
 '
 }
+
 case $1 in
     -s|--start)
     get
@@ -303,9 +304,10 @@ case $1 in
         get
         general
         gtkdialog --program=MAIN_DIALOG
+        exit 0
       else
         echo ":: ERROR: $1 is no known option"
+        exit 1
       fi
-    exit 0
     ;;
 esac

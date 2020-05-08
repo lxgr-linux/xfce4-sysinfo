@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 Type=Application
-Exec=/usr/bin/sysinfo
+Exec=/usr/bin/sysinfo -s
 Icon=help-about
 StartupNotify=false
 Terminal=false
