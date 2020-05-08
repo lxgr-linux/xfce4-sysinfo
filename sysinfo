@@ -139,7 +139,7 @@ export about_dialog='
 
 export MAIN_DIALOG='
 
-<window title="Systeminfo" icon-name="preferences-desktop" resizable="false" width-request="700" height-request="auto">
+<window title="Systeminfo" icon-name="dialog-information-symbolic" resizable="false" width-request="700" height-request="auto">
  <vbox>
   <hbox space-expand="true">
     <hbox xalign="0">
