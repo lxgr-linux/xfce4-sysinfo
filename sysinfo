@@ -191,6 +191,7 @@ Here you can see your systems information"</label></text>
         <vbox spacing="1">
           <text><label>" "</label></text>
           <text use-markup="true"><label>"<b>Hardware:</b>"</label></text>
+          <text wrap="true" use-markup="true" width-chars="50"><label>"<b> Host:</b> '$(cat /sys/devices/virtual/dmi/id/sys_vendor)' '$(cat /sys/devices/virtual/dmi/id/product_name)'"</label></text>
           <text wrap="true" use-markup="true" width-chars="50"><label>"<b> CPU:</b> '$(egrep "model name" /proc/cpuinfo | uniq | awk {'print $4,$5,$6,$7,$8,$9,$10,$11,$12'})'"</label></text>
           <text wrap="true" use-markup="true" width-chars="50" justify="2"><label>"<b> GPU:</b> '$(lspci | egrep VGA | awk {'print $5,$6,$7,$8,$9,$10,$11'})' '$(lspci | egrep 3D | awk {'print $4,$5,$6,$7,$8,$9,$10,$11'})'"</label></text>
           <text wrap="true" use-markup="true" width-chars="50"><label>"<b> RAM:</b> '$(free -h | sed -n '2p' | awk {'print $2'})'"</label></text>
