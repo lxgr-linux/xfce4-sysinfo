@@ -1,6 +1,7 @@
 #!/bin/bash
 ## xfce4-sysinfo
 
+disticon=auto
 . /etc/xfce4-sysinfo.conf
 . /etc/os-release
 
