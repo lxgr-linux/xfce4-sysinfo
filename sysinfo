@@ -1,6 +1,7 @@
 #!/bin/bash
 ## xfce4-sysinfo
 
+. /etc/xfce4-sysinfo.conf
 . /etc/os-release
 
 update(){
@@ -46,8 +47,9 @@ update(){
 
 get(){
   ##getting icon
-
-  case $ID in
+if [ $disticon == auto ]
+  then
+    case $ID in
       debian | kali | ubuntu)
       icon='"'emblem-$ID'"'
       ;;
@@ -61,7 +63,10 @@ get(){
       *)
       icon='"'$LOGO'"'
       ;;
-  esac
+    esac
+  else
+    icon='"'$disticon'"'
+  fi
 
   ##getting packagemanager
 
@@ -85,16 +90,6 @@ updateg(){
 }
 
 general(){
-
-#  if [ $ID == debian ]
-#    then
-#      icon=""
-#      file="/usr/share/xfce4-sysinfo/icons/debian.svg"
-#    else
-#      icon=" "icon='"'$LOGO'"'
-#      echo $icon
-#      echo $file
-#    fi
 
 export about_dialog='
 
@@ -241,7 +236,7 @@ case $1 in
                 echo "      -u|--update       : Updates this software via the AUR or github"
                 echo "      --update-grafical : Same as -u, but wich an gui"
                 echo "      -h|--help         : Displays this help-dialog"
-#                echo "      --help-logo       : Displays help for your distributions logo in the systeminfo dialog"
+                echo "      --help-logo       : Displays help for your distributions logo in the systeminfo dialog"
 		exit 0
 		;;
     -u|--update)
@@ -284,21 +279,31 @@ case $1 in
       gtkdialog --program=about_dialog
     exit 0
     ;;
-#    --help-logo)
-#      echo "This is the help/info text for your distributions logo in the systeminfo dialog:"
-#      echo "     The available logos are stored in /usr/share/xfce4-sysinfo/icons."
-#      echo "     If the logo of the Distribution you are using is not displayed, you can copy it to /usr/share/xfce4-sysinfo/icons"
-#      echo "     Name it $ID.svg"
-#    exit 0
-#    ;;
+    --help-logo)
+      echo "This is the help/info text for your distributions logo in the systeminfo dialog:"
+      echo ""
+      echo "     The available logos are stored in /usr/share/pixmaps or defined in the icontheme"
+      echo "     If the logo of the Distribution you are using is not displayed"
+      echo "     you can copy it to /usr/share/pixmaps and change 'disticon' in"
+      echo "     /etc/xfce4-sysinfo.conf to the name of the icon."
+      echo "     For example disticon=emblem-debian. The defaultvalue is 'auto'."
+      echo "     If set to auto sysinfo will try to detect the icon it self"
+      echo "     (This is not perfect and will not work on every distribution)."
+    exit 0
+    ;;
     -v|--version)
       echo $(pacman -Qs xfce4-sysinfo | egrep xfce4-sysinfo | awk {'print $2'} ; tail -n1 /usr/share/xfce4-sysinfo/version)
     exit 0
     ;;
     * )
-      get
-      general
-      gtkdialog --program=MAIN_DIALOG
+      if [ "$1" == "" ]
+      then
+        get
+        general
+        gtkdialog --program=MAIN_DIALOG
+      else
+        echo ":: ERROR: $1 is no known option"
+      fi
     exit 0
     ;;
 esac
