@@ -61,6 +61,9 @@ if [ $disticon == auto ]
       linuxmint)
       icon='"'linuxmint-logo'"'
       ;;
+      opensuse-leap)
+      icon='"'suse'"'
+      ;;
       *)
       icon='"'$LOGO'"'
       ;;
@@ -259,6 +262,7 @@ case $1 in
       echo "  Installed Packages: $ipac ($pac) $(flatpak list | wc -l) (Flatpak) $(snap list | wc -l) (Snap)"
       echo "  Hostname: $(hostname)"
       echo Hardware:
+      echo "  Host:" $(cat /sys/devices/virtual/dmi/id/sys_vendor)" "$(cat /sys/devices/virtual/dmi/id/product_name)
       echo "  CPU:" $(egrep "model name" /proc/cpuinfo | uniq | awk {'print $4,$5,$6,$7,$8,$9,$10,$11,$12'})
       echo "  GPU:" $(lspci | egrep VGA | awk {'print $5,$6,$7,$8,$9,$10,$11'}) $(lspci | egrep 3D | awk {'print $4,$5,$6,$7,$8,$9,$10,$11'})
       echo "  RAM:" $(free -h | sed -n '2p' | awk {'print $2'})
