@@ -91,13 +91,13 @@ if [ $disticon == auto ]
 pacs=""
 if [ -e /usr/bin/snap ]
   then
-    pacs=" "$(snap list | wc -l) '(Snap)'
+    pacs=" "$(snap list | wc -l)" (Snap)"
 fi
 
 pacf=""
 if [ -e /usr/bin/flatpak ]
   then
-    pacf=" "$(flatpak list | wc -l) '(Flatpak)'
+    pacf=" "$(flatpak list | wc -l)" (Flatpak)"
 fi
 }
 
