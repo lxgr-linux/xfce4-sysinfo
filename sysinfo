@@ -54,7 +54,7 @@ if [ $disticon == auto ]
       debian | kali | ubuntu)
       icon='"'emblem-$ID'"'
       ;;
-      ubuntu)
+      ubuntu | xubuntu)
       icon='"'xubuntu-logo'"'
       #file="/usr/share/xfce4-sysinfo/icons/ubuntu.png"
       ;;
