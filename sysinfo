@@ -87,6 +87,18 @@ if [ $disticon == auto ]
       pac=Apt
       ipac=$(apt list --installed | wc -l)
   fi
+
+pacs=""
+if [ -e /usr/bin/snap ]
+  then
+    pacs=" "$(snap list | wc -l) "(Snap)"
+fi
+
+pacf=""
+if [ -e /usr/bin/flatpak ]
+  then
+    pacf=" "$(flatpak list | wc -l) "(Flatpak)"
+fi
 }
 
 updateg(){
@@ -170,7 +182,7 @@ Here you can see your systems information"</label></text>
            <hbox homogeneous="true" spacing="0">
              <hbox spacing="0">
                <text wrap="true" justify="1" use-markup="true"><label>"<b>Installed Packages:</b> '$ipac' ('$pac')
-'$(flatpak list | wc -l)' (Flatpak) '$(snap list | wc -l)' (Snap)"</label></text>
+'$pacf''$pacs'"</label></text>
                <button relief="2">
                  <input file icon="software-update-available-symbolic"></input>
                  <height>18</height>
