@@ -72,7 +72,7 @@ if [ $disticon == auto ]
     icon='"'$disticon'"'
   fi
 
-  ##getting packagemanager
+##getting packagemanager
 
   if [ -e /bin/pacman ]
     then
@@ -87,6 +87,8 @@ if [ $disticon == auto ]
       pac=Apt
       ipac=$(apt list --installed | wc -l)
   fi
+
+##checking if flatpak and snap are installed
 
 pacs=""
 if [ -e /usr/bin/snap ]
