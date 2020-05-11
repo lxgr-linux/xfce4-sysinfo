@@ -54,12 +54,12 @@ if [ $disticon == auto ]
       debian | kali | ubuntu)
       icon='"'emblem-$ID'"'
       ;;
-      #ubuntu)
-      #icon=" "icon='"'
+      ubuntu)
+      icon='"'xubuntu-logo'"'
       #file="/usr/share/xfce4-sysinfo/icons/ubuntu.png"
-      #;;
-      linuxmint | xubuntu)
-      icon='"'$ID-logo'"'
+      ;;
+      linuxmint)
+      icon='"'linuxmint-logo'"'
       ;;
       opensuse-leap)
       icon='"'suse'"'
