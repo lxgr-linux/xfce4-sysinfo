@@ -51,7 +51,7 @@ get(){
 if [ $disticon == auto ]
   then
     case $ID in
-      debian | kali | ubuntu)
+      debian | kali)
       icon='"'emblem-$ID'"'
       ;;
       ubuntu | xubuntu)
