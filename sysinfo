@@ -47,7 +47,7 @@ update(){
 }
 
 get(){
-  ##getting icon
+##getting icon
 if [ $disticon == auto ]
   then
     case $ID in
@@ -58,8 +58,8 @@ if [ $disticon == auto ]
       #icon=" "icon='"'
       #file="/usr/share/xfce4-sysinfo/icons/ubuntu.png"
       #;;
-      linuxmint)
-      icon='"'linuxmint-logo'"'
+      linuxmint | xubuntu)
+      icon='"'$ID-logo'"'
       ;;
       opensuse-leap)
       icon='"'suse'"'
