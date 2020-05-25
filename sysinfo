@@ -112,7 +112,8 @@ fi
 
 if [ $mode == extended ]
   then
-    modet='<text wrap="true" width-chars="46" use-markup="true"><label>"<b> test:</b>test"</label></text>'
+    modet='<text wrap="true" width-chars="46" use-markup="true"><label>"<b> Loaded kernel-modules:</b> '$(expr $(lsmod | wc -l) - 1)'"</label></text><text wrap="true" width-chars="46" use-markup="true"><label>"<b> Shell:</b> '$SHELL'"</label></text><text wrap="true" width-chars="46" use-markup="true"><label>"<b> Language:</b> '$LANG'"</label></text><text wrap="true" width-chars="46" use-markup="true"><label>"<b> Uptime:</b> '$(uptime -p)'"</label></text>'
+    modeth='<text wrap="true" width-chars="46" use-markup="true" justify="2"><label>"<b> Audiodevice:</b> '$(lspci | egrep audio | awk {'print $5,$6,$7,$8,$9,$10,$11,$12'})'"</label></text>'
     state='true'
   else
     state='false'
@@ -203,8 +204,8 @@ Here you can see your systems information"</label></text>
            <text height-request="0"><label>" "</label></text>
            <text use-markup="true"><label>"<b>General:</b>"</label></text>
            <text wrap="true" width-chars="45" use-markup="true"><label>"<b> Operatingsystem:</b> '$PRETTY_NAME'"</label></text>
-           <text wrap="true" width-chars="46" use-markup="true"><label>"<b> Kernel:</b> '$(uname -msr)'"</label></text>
-           <text wrap="true" width-chars="46" use-markup="true"><label>"<b> XFCE version:</b> '$(xfce4-session -V | egrep xfce4-session | awk {'print $2'})'"</label></text>'$modet'
+           <text wrap="true" width-chars="46" use-markup="true"><label>"<b> Kernel:</b> '$(uname -msr)'"</label></text>'$modet'
+           <text wrap="true" width-chars="46" use-markup="true"><label>"<b> XFCE version:</b> '$(xfce4-session -V | egrep xfce4-session | awk {'print $2'})'"</label></text>
            <hbox homogeneous="true" spacing="0">
              <hbox spacing="0">
                <text wrap="true" justify="1" use-markup="true"><label>"<b>Installed Packages:</b> '$ipac' ('$pac')
@@ -234,7 +235,7 @@ Here you can see your systems information"</label></text>
           <text use-markup="true"><label>"<b>Hardware:</b>"</label></text>
           <text wrap="true" use-markup="true" width-chars="50"><label>"<b> Host:</b> '$(cat /sys/devices/virtual/dmi/id/sys_vendor)' '$(cat /sys/devices/virtual/dmi/id/product_name)'"</label></text>
           <text wrap="true" use-markup="true" width-chars="50"><label>"<b> CPU:</b> '$(egrep "model name" /proc/cpuinfo | uniq | awk {'print $4,$5,$6,$7,$8,$9,$10,$11,$12'})'"</label></text>
-          <text wrap="true" use-markup="true" width-chars="50" justify="2"><label>"<b> GPU:</b> '$(lspci | egrep VGA | awk {'print $5,$6,$7,$8,$9,$10,$11'})' '$(lspci | egrep 3D | awk {'print $4,$5,$6,$7,$8,$9,$10,$11'})'"</label></text>
+          <text wrap="true" use-markup="true" width-chars="50" justify="2"><label>"<b> GPU:</b> '$(lspci | egrep VGA | awk {'print $5,$6,$7,$8,$9,$10,$11'})' '$(lspci | egrep 3D | awk {'print $4,$5,$6,$7,$8,$9,$10,$11'})'"</label></text>'$modeth'
           <text wrap="true" use-markup="true" width-chars="50"><label>"<b> RAM:</b> '$(free -h | sed -n '2p' | awk {'print $2'})'"</label></text>
           <text wrap="true" use-markup="true" width-chars="50"><label>"<b> Disk used:</b> '$(df -h | egrep -w ' /' | awk {'print $3'})'/'$(df -h | egrep -w ' /' | awk {'print $2'})'"</label></text>
           <text><label>" "</label></text>
