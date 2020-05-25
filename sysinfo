@@ -3,12 +3,13 @@
 
 disticon=auto
 . /etc/xfce4-sysinfo.conf
+. ~/.config/xfce4-sysinfo/xfce4-sysinfo.conf
 . /etc/os-release
 
 update(){
   if [ -e /usr/share/xfce4-sysinfo/version ]
     then
-      echo "The latest version of this software will be downloaded and installed. You will have to type in your password! Do you want this? (y/n)"
+      echo "The latest version of this software will be downloaded and installed. You will have to type in your password! Do you want this? [y/n]"
       read ans
       if [ $ans == y ]
         then
@@ -26,7 +27,7 @@ update(){
         fi
         echo :: Exit
     else
-      echo "The latest version of this software will be downloaded and installed from the AUR. You will have to type in your password! Do you want this? (y/n)"
+      echo "The latest version of this software will be downloaded and installed from the AUR. You will have to type in your password! Do you want this? [y/n]"
       read ans
       if [ $ans == y ]
         then
@@ -101,6 +102,16 @@ if [ -e /usr/bin/flatpak ]
   then
     pacf=" "$(flatpak list | wc -l)" (Flatpak)"
 fi
+
+##checking mode
+
+if [ $mode == extended ]
+  then
+    modet='<text wrap="true" width-chars="46" use-markup="true"><label>"<b> test:</b>test"</label></text>'
+    state='true'
+  else
+    state='false'
+fi
 }
 
 updateg(){
@@ -132,6 +143,12 @@ export about_dialog='
     </hbox>
     <text><label>Version: '$(sh -c "pacman -Qs xfce4-sysinfo  | egrep xfce4-sysinfo | awk {'print $2'}" ; tail -n1 /usr/share/xfce4-sysinfo/version)'</label></text>
     <text><label>" "</label></text>
+    <checkbox>
+      <label>Extended mode</label>
+      <default>'$state'</default>
+      <action>if true echo mode=extended > ~/.config/xfce4-sysinfo/xfce4-sysinfo.conf</action>
+      <action>if false echo mode=normal > ~/.config/xfce4-sysinfo/xfce4-sysinfo.conf</action>
+    </checkbox>
     <hseparator width-request="auto"></hseparator>
     <hbox spacing="0">
       <button width-request="100">
@@ -180,7 +197,7 @@ Here you can see your systems information"</label></text>
            <text use-markup="true"><label>"<b>General:</b>"</label></text>
            <text wrap="true" width-chars="45" use-markup="true"><label>"<b> Operatingsystem:</b> '$PRETTY_NAME'"</label></text>
            <text wrap="true" width-chars="46" use-markup="true"><label>"<b> Kernel:</b> '$(uname -msr)'"</label></text>
-           <text wrap="true" width-chars="46" use-markup="true"><label>"<b> XFCE version:</b> '$(xfce4-session -V | egrep xfce4-session | awk {'print $2'})'"</label></text>
+           <text wrap="true" width-chars="46" use-markup="true"><label>"<b> XFCE version:</b> '$(xfce4-session -V | egrep xfce4-session | awk {'print $2'})'"</label></text>'$modet'
            <hbox homogeneous="true" spacing="0">
              <hbox spacing="0">
                <text wrap="true" justify="1" use-markup="true"><label>"<b>Installed Packages:</b> '$ipac' ('$pac')
