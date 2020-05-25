@@ -147,13 +147,15 @@ export about_dialog='
       </hbox>
     </hbox>
     <text><label>Version: '$(sh -c "pacman -Qs xfce4-sysinfo  | egrep xfce4-sysinfo | awk {'print $2'}" ; tail -n1 /usr/share/xfce4-sysinfo/version)'</label></text>
+    <hbox homogeneous="true">
+      <checkbox>
+        <label>Extended mode</label>
+        <default>'$state'</default>
+        <action>if true echo mode=extended > ~/.config/xfce4-sysinfo/xfce4-sysinfo.conf</action>
+        <action>if false echo mode=normal > ~/.config/xfce4-sysinfo/xfce4-sysinfo.conf</action>
+      </checkbox>
+    </hbox>
     <text><label>" "</label></text>
-    <checkbox>
-      <label>Extended mode</label>
-      <default>'$state'</default>
-      <action>if true echo mode=extended > ~/.config/xfce4-sysinfo/xfce4-sysinfo.conf</action>
-      <action>if false echo mode=normal > ~/.config/xfce4-sysinfo/xfce4-sysinfo.conf</action>
-    </checkbox>
     <hseparator width-request="auto"></hseparator>
     <hbox spacing="0">
       <button width-request="100">
