@@ -6,6 +6,11 @@ disticon=auto
 . ~/.config/xfce4-sysinfo/xfce4-sysinfo.conf
 . /etc/os-release
 
+if [ ! -e ~/.config/xfce4-sysinfo/xfce4-sysinfo.conf ]
+  then
+    mkdir ~./config/xfce4-sysinfo/
+fi
+
 update(){
   if [ -e /usr/share/xfce4-sysinfo/version ]
     then
