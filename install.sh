@@ -10,5 +10,5 @@ echo $(git rev-list --count HEAD).$(git rev-parse --short HEAD) >> /usr/share/xf
 mkdir /usr/share/licenses/
 mkdir /usr/share/licenses/xfce4-sysinfo/
 mkdir ../../.config/xfce4-sysinfo/
-touch ../../.config/xfce4-sysinfo/xfce4-sysinfo.conf
+#touch ../../.config/xfce4-sysinfo/xfce4-sysinfo.conf
 cp ./LICENSE /usr/share/licenses/xfce4-sysinfo/
