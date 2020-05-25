@@ -8,7 +8,7 @@ disticon=auto
 
 if [ ! -e ~/.config/xfce4-sysinfo/xfce4-sysinfo.conf ]
   then
-    mkdir ~./config/xfce4-sysinfo/
+    mkdir ~/.config/xfce4-sysinfo/
 fi
 
 update(){
