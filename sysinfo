@@ -113,7 +113,7 @@ fi
 if [ $mode == extended ]
   then
     modet='<text wrap="true" width-chars="46" use-markup="true"><label>"<b> Loaded kernel-modules:</b> '$(expr $(lsmod | wc -l) - 1)'"</label></text><text wrap="true" width-chars="46" use-markup="true"><label>"<b> Shell:</b> '$SHELL'"</label></text><text wrap="true" width-chars="46" use-markup="true"><label>"<b> Language:</b> '$LANG'"</label></text><text wrap="true" width-chars="46" use-markup="true"><label>"<b> Uptime:</b> '$(uptime -p)'"</label></text>'
-    modeth='<text wrap="true" width-chars="45" use-markup="true" justify="2"><label>"<b> Audiodevice:</b> '$(lspci | egrep [Aa]udio | cut -d: -f3)'"</label></text>'
+    modeth='<text wrap="true" width-chars="45" use-markup="true" justify="2"><label>"<b> Networkdevice:</b> '$(lspci | egrep [Nn]etwork | cut -d: -f3)'"</label></text><text wrap="true" width-chars="45" use-markup="true" justify="2"><label>"<b> Audiodevice:</b> '$(lspci | egrep [Aa]udio | cut -d: -f3)'"</label></text>'
     state='true'
   else
     state='false'
