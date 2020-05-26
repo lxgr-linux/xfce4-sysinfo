@@ -30,3 +30,7 @@ Options:<br>
  # screenshot
 
 <img src=https://github.com/lxgr-linux/xfce4-sysinfo/blob/master/xfce4-sysinfo.png>
+normal mode
+
+<img src=https://github.com/lxgr-linux/xfce4-sysinfo/blob/master/xfce4-sysinfo_extended-mode.png>
+extended mode
