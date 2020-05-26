@@ -29,8 +29,8 @@ Options:<br>
 
  # screenshot
 
+normal mode:
 <img src=https://github.com/lxgr-linux/xfce4-sysinfo/blob/master/xfce4-sysinfo.png>
-normal mode
 
+extended mode:
 <img src=https://github.com/lxgr-linux/xfce4-sysinfo/blob/master/xfce4-sysinfo_extended-mode.png>
-extended mode
