@@ -1,23 +1,30 @@
-#!/bin/bash
+#!/usr/bin/env bash
 ## xfce4-sysinfo
 
 disticon=auto
+ansc=0
 . /etc/xfce4-sysinfo.conf
 . ~/.config/xfce4-sysinfo/xfce4-sysinfo.conf
 . /etc/os-release
 
+## generate local config file
 if [ ! -e ~/.config/xfce4-sysinfo/xfce4-sysinfo.conf ]
   then
     mkdir ~/.config/xfce4-sysinfo/
 fi
 
+## update the program
 update(){
+  # via github
   if [ -e /usr/share/xfce4-sysinfo/version ]
     then
       echo "The latest version of this software will be downloaded and installed. You will have to type in your password! Do you want this? [y/n]"
+      while [ $ansc == 0 ]
+      do
       read ans
       if [ $ans == y ]
         then
+          ansc=1
           mkdir ~/.build
           cd ~/.build
           echo :: Cloning git repository
@@ -29,13 +36,23 @@ update(){
           echo :: Cleaning up
           sudo rm -r ~/.build
           echo :: Done!
+        elif [ $ans == n ]
+          then
+            ansc=1
+            echo :: Exit
+        else
+          echo "Type 'y' or 'n'"
         fi
-        echo :: Exit
+      done
     else
+      # via AUR
       echo "The latest version of this software will be downloaded and installed from the AUR. You will have to type in your password! Do you want this? [y/n]"
+      while [ $ansc == 0 ]
+      do
       read ans
       if [ $ans == y ]
         then
+          ansc=1
           mkdir ~/.build_AUR
           cd ~/.build_AUR
           echo :: Cloning git repository
@@ -47,13 +64,19 @@ update(){
           echo :: Cleaning up
           sudo rm -r ~/.build_AUR
           echo :: Done!
-      fi
-      echo :: Exit
+        elif [ $ans == n ]
+          then
+            ansc=1
+            echo :: Exit
+        else
+          echo "Type 'y' or 'n'"
+        fi
+      done
   fi
 }
 
 get(){
-##getting icon
+## getting icon
 if [ $disticon == auto ]
   then
     case $ID in
@@ -78,7 +101,7 @@ if [ $disticon == auto ]
     icon='"'$disticon'"'
   fi
 
-##getting packagemanager
+## getting packagemanager
 
   if [ -e /bin/pacman ]
     then
@@ -94,7 +117,7 @@ if [ $disticon == auto ]
       ipac=$(apt list --installed | wc -l)
   fi
 
-##checking if flatpak and snap are installed
+## checking if flatpak and/or snap are installed
 
 pacs=""
 if [ -e /usr/bin/snap ]
@@ -108,7 +131,7 @@ if [ -e /usr/bin/flatpak ]
     pacf=" "$(flatpak list | wc -l)" (Flatpak)"
 fi
 
-##checking mode
+## checking mode
 
 if [ $mode == extended ]
   then
@@ -120,12 +143,14 @@ if [ $mode == extended ]
 fi
 }
 
+## grafical updatescript
 updateg(){
   if [ -e /usr/share/xfce4-sysinfo/version ]; then zenity --info --text "The latest version of this software will be downloaded and installed. You will have to type in your password!" && exo-open --launch TerminalEmulator sh -c "mkdir ~/.build; cd ~/.build; echo :: Cloning git repository; git clone https://github.com/lxgr-linux/xfce4-sysinfo.git; cd ./xfce4-sysinfo; echo :: Installing the software; sudo ./install.sh; cd; echo :: Cleaning up; sudo rm -r ~/.build; echo :: Done!; zenity --info --text 'Done'"; else zenity --info --text "The latest version of this software will be downloaded and installed from the AUR. You will have to type in your password!" && exo-open --launch TerminalEmulator sh -c "mkdir ~/.build_AUR; cd ~/.build_AUR; echo :: Cloning git repository; git clone https://aur.archlinux.org/xfce4-sysinfo.git; cd ./xfce4-sysinfo; echo :: Making and installing the package; makepkg -sif; cd; echo :: Cleaning up; sudo rm -r ~/.build_AUR; echo :: Done!; zenity --info --text 'Done'"; fi
 }
 
 general(){
 
+## info/settings dialog
 export about_dialog='
 
 <window title="About Systeminfo" icon-name="dialog-information-symbolic" resizable="true" width-request="500" height-request="auto">
@@ -178,7 +203,7 @@ export about_dialog='
 </window>
 '
 
-
+## main dialog
 export MAIN_DIALOG='
 
 <window title="Systeminfo" icon-name="dialog-information-symbolic" resizable="false" width-request="700" height-request="auto">
@@ -262,41 +287,106 @@ Here you can see your systems information"</label></text>
 '
 }
 
+## checking for options
 case $1 in
     -s|--start)
+    # just start the program
     get
     general
     gtkdialog --program=MAIN_DIALOG
     exit 0
     ;;
 		-h|--help)
+    # printing out the help dialog
                 echo "xfce4-sysinfo"
                 echo "Usage: $0 <option> <string>"
+                echo "   General options:"
                 echo "      -s|--start        : Starts xfce4-sysinfo"
                 echo "      -a|--about        : Displays about-dialog"
                 echo "      -v|--version      : Displays version"
                 echo "      -c|--console      : Just gives console output"
                 echo "      -d|--distro       : Specifys the logo which is printed out (possible options: ubuntu)"
                 echo "      -l|--license      : Displays license"
+                echo -e ""
+                echo "   Update options:"
                 echo "      -u|--update       : Updates this software via the AUR or github"
-                echo "      --update-grafical : Same as -u, but wich an gui"
+                echo "      --update-grafical : Same as -u, but with a gui"
+                echo -e ""
+                echo "   Mode options:"
+                echo "      -m|--mode <mode>  : Sets the mode that should be used. Modes are 'normal' and 'extended'"
+                echo "      -ms <mode>        : Like -m but after setting the mode it also starts the gui"
+                echo "      -mst <mode>       : Like -ms but the mode is set temporaly"
+                echo -e ""
+                echo "   Help options:"
                 echo "      -h|--help         : Displays this help-dialog"
                 echo "      --help-logo       : Displays help for your distributions logo in the systeminfo dialog"
 		exit 0
 		;;
     -u|--update)
+    # execute the update-function
       update
     exit 0
     ;;
     --update-grafical)
+    # execute the grafical update-function
       updateg
     exit 0
     ;;
+    -m|--mode|-ms|-mst)
+    # setting the mode
+      if [ $2 == extended ]
+      # set to extended
+        then
+          if [ $1 == -mst ]
+            then
+              # temporaly
+              mode=extended
+            else
+              echo mode=extended > ~/.config/xfce4-sysinfo/xfce4-sysinfo.conf
+          fi
+      elif [ $2 == normal ]
+      # set to normal
+        then
+          if [ $1 == -mst ]
+            then
+              # temporaly
+              mode=normal
+            else
+              echo mode=normal > ~/.config/xfce4-sysinfo/xfce4-sysinfo.conf
+          fi
+      else
+        # echo an error if mode is not found
+          echo ":: ERROR: $2 is no known mode! Try --help to see all options!"
+          exit 1
+      fi
+      if [ $1 == "-ms" ]
+      # setting the mode and starting the program
+        then
+          . ~/.config/xfce4-sysinfo/xfce4-sysinfo.conf
+          get
+          general
+          gtkdialog --program=MAIN_DIALOG
+          exit 0
+        elif [ $1 == "-mst" ]
+        # setting the mode and starting the program
+          then
+            get
+            general
+            gtkdialog --program=MAIN_DIALOG
+            exit 0
+      fi
+    exit 0
+    ;;
     -c|--console)
+    # just output console output
       get
       echo General:
       echo "  Operatingsystem:" $PRETTY_NAME
       echo "  Kernel:" $(uname -msr)
+      if [ $mode == extended ]
+        then
+          echo -e "  Loaded kernel-modules:$(expr $(lsmod | wc -l) - 1) \n  Shell $SHELL \n  Language: $LANG \n  Uptime: $(uptime -p)"
+      fi
       echo "  XFCE version:" $(xfce4-session -V | egrep xfce4-session | awk {'print $2'})
       echo "  Installed Packages: $ipac ($pac)$pacf$pacs"
       echo "  Hostname: $(hostname)"
@@ -304,11 +394,16 @@ case $1 in
       echo "  Host:" $(cat /sys/devices/virtual/dmi/id/sys_vendor)" "$(cat /sys/devices/virtual/dmi/id/product_name)
       echo "  CPU:" $(egrep "model name" /proc/cpuinfo | uniq | awk {'print $4,$5,$6,$7,$8,$9,$10,$11,$12'})
       echo "  GPU:" $(lspci | egrep VGA | awk {'print $5,$6,$7,$8,$9,$10,$11'}) $(lspci | egrep 3D | awk {'print $4,$5,$6,$7,$8,$9,$10,$11'})
+      if [ $mode == extended ]
+        then
+          echo -e "  Resolution: $(xrandr | egrep "Screen 0" | cut -d, -f2 | awk {'print $2 $3 $4'}) \n  Networkdevice:$(lspci | egrep [Nn]etwork | cut -d: -f3) \n  Audiodevice:$(lspci | egrep [Aa]udio | cut -d: -f3)"
+      fi
       echo "  RAM:" $(free -h | sed -n '2p' | awk {'print $2'})
       echo "  Disk used:" $(df -h | egrep -w ' /' | awk {'print $3'})'/'$(df -h | egrep -w ' /' | awk {'print $2'})
     exit 0
     ;;
     -d|--distro)
+    # manualy setting the distro wiches icon should be used
       ID=$2
       echo :: $ID
       get
@@ -317,15 +412,18 @@ case $1 in
     exit 0
     ;;
     -l|--license)
+    # print out the license
       cat /usr/share/licenses/xfce4-sysinfo/LICENSE | less
     exit 0
     ;;
     -a|--about)
+    # just open the about dialog
       general
       gtkdialog --program=about_dialog
     exit 0
     ;;
     --help-logo)
+    # echo helptext for logos
       echo "This is the help/info text for your distributions logo in the systeminfo dialog:"
       echo ""
       echo "     The available logos are stored in /usr/share/pixmaps or defined in the icontheme"
@@ -338,17 +436,20 @@ case $1 in
     exit 0
     ;;
     -v|--version)
+    # echo out the programs version
       echo $(pacman -Qs xfce4-sysinfo | egrep xfce4-sysinfo | awk {'print $2'} ; tail -n1 /usr/share/xfce4-sysinfo/version)
     exit 0
     ;;
     * )
       if [ "$1" == "" ]
+      # start the program normaly if no options are given
       then
         get
         general
         gtkdialog --program=MAIN_DIALOG
         exit 0
       else
+        # give an error if the option in unknown
         echo ":: ERROR: $1 is no known option! Try --help to see all options!"
         exit 1
       fi
