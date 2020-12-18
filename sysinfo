@@ -246,7 +246,7 @@ Here you can see your systems information"</label></text>
         <hbox homogeneous="true" spacing="0">
           <hbox spacing="0">
             <text wrap="true" auto-refresh="true" use-markup="true" justify="1"><label>"<b>Hostname:</b>
-'$(hostname)'"</label></text>
+'$(cat /etc/hostname)'"</label></text>
             <button relief="2">
               <input file icon="document-edit"></input>
               <height>18</height>
@@ -389,7 +389,7 @@ case $1 in
       fi
       echo "  XFCE version:" $(xfce4-session -V | egrep xfce4-session | awk {'print $2'})
       echo "  Installed Packages: $ipac ($pac)$pacf$pacs"
-      echo "  Hostname: $(hostname)"
+      echo "  Hostname: $(cat /etc/hostname)"
       echo Hardware:
       echo "  Host:" $(cat /sys/devices/virtual/dmi/id/sys_vendor)" "$(cat /sys/devices/virtual/dmi/id/product_name)
       echo "  CPU:" $(egrep "model name" /proc/cpuinfo | uniq | awk {'print $4,$5,$6,$7,$8,$9,$10,$11,$12'})
